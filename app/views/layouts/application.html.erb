@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>RailsProject</title>
+    <title>Instagram Clone</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -11,8 +11,11 @@
 
   <body>
     <%= render "layouts/navbar" if current_user %>
+    <hr>
 
-    <%= yield %>
+    <div class="container">
+      <%= yield %>
+    </div>
 
     <% if flash.any? %>
       <script type="text/javascript">
