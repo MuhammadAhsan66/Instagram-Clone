@@ -1,4 +1,6 @@
-<% if resource.errors.any? %>
+<%
+=begin%>
+ <% if resource.errors.any? %>
   <div id="error_explanation">
     <h2>
       <%= I18n.t("errors.messages.not_saved",
@@ -12,4 +14,14 @@
       <% end %>
     </ul>
   </div>
+<% end %>
+<%
+=end%>
+
+<% if resource.errors.any? %>
+  <script type="text/javascript">
+    <% resource.errors.full_messages.each do |value| %>
+      toastr.error('<%= value %>')
+    <% end %>
+  </script>
 <% end %>
