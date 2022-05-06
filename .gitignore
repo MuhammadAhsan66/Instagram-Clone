@@ -27,4 +27,4 @@
 /config/master.key
 
 # ignore DS store folder
-.DS_Store
+**/.DS_Store
