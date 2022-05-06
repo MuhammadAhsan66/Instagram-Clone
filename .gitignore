@@ -26,5 +26,5 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
-# ignore DS store folder
+# ignore DS_Store folder
 **/.DS_Store
