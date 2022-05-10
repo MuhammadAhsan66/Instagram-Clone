@@ -1,11 +1,8 @@
 class UsersController < ApplicationController
   def show
-    begin
-      @user = User.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-      render 'usernotfound'
-    else
-      @user.image = @user == current_user ? 'current_user_pic' : 'users_pic'
-    end
+    @user = User.find(params[:id])
+    @user.image = @user == current_user ? 'current_user_pic' : 'users_pic'
+  rescue ActiveRecord::RecordNotFound
+    render 'user_not_found'
   end
 end
