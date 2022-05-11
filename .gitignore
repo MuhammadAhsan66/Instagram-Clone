@@ -33,4 +33,4 @@
 /config/application.yml
 
 # ignore Test Folder for now
-test/
+/test/
