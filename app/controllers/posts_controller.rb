@@ -3,17 +3,16 @@ class PostsController < ApplicationController
   before_action :find_post, only: %i[show destroy]
 
   def index
-    # @posts = Post.paginate(:page => params[:page], :per_page => 5).includes(:photos, :user, :likes).order("created_at desc")
-    @posts = Post.all.limit(10).includes(:photos)
+    @posts = Post.all.limit(1000).includes(:photos)
     @post = Post.new
   end
 
   def create
-    @post = current_user.posts.build(post_params)
+    @post = current_user.posts.new(post_params)
     if @post.save
       if params[:images]
         params[:images].each do |img|
-          @post.photos.create(image: params[:images][img])
+          @post.photos.create(image: img)
         end
       end
       redirect_to posts_path
@@ -25,7 +24,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    # @photos = @post.photos
+    @photos = @post.photos
     # @likes = @post.likes.includes(:user)
     # @comment = Comment.new
     # @is_liked = @post.is_liked(current_user)
@@ -57,6 +56,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit :caption
+    params.require(:post).permit(:caption)
   end
 end
