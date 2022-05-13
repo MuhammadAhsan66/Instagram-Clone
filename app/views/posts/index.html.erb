@@ -10,10 +10,13 @@
 </div>
 
 <div class="posts-homepage">
+  <h1>All Post</h1>
   <% @posts.each do |post| %>
-    <p><%= post.caption %></p>
-    <% post.photos.each do |photo| %>
-      <%= image_tag photo.image.url(:standard) %>
-    <% end %><br>
+    <div class="post">
+      <% post.photos.each do |photo| %>
+        <%= image_tag photo.image.url(:standard) %>
+      <% end %><br>
+      <p><%= post.caption %></p>
+    </div>
   <% end %>
 </div>

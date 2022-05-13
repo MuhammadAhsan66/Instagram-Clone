@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'pages#home'
+  root 'posts#index'
   devise_for :users,
              path: '',
              path_names: { sign_in: 'log_in', sign_out: 'log_out', edit: 'profile', sign_up: 'registration' }

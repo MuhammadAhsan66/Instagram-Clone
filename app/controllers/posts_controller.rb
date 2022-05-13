@@ -16,9 +16,9 @@ class PostsController < ApplicationController
         end
       end
       redirect_to posts_path
-      flash[:notice] = 'Saved ...'
+      flash[:notice] = 'Post has been saved.'
     else
-      flash[:alert] = 'Something went wrong ...'
+      flash[:alert] = 'Something went wrong while saving the post!!!'
       redirect_to posts_path
     end
   end
@@ -36,7 +36,7 @@ class PostsController < ApplicationController
     @post = Post.find_by id: params[:id]
     return if @post
 
-    flash[:danger] = 'Post not exist!'
+    flash[:danger] = 'Post does not exist!'
     redirect_to root_path
   end
 
