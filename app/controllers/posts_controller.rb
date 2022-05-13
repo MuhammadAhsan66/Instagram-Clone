@@ -1,20 +1,21 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_post, only: %i[show destroy]
+  before_action :find_post, only: %i[show destroy edit update]
 
   def index
-    @posts = Post.all.limit(1000).includes(:photos)
+    # @posts = Post.all.limit(1000).includes(:photos, :user).order('created_at desc')
+    @posts = Post.all.includes(:photos, :user).order('created_at desc')
     @post = Post.new
+  end
+
+  def show
+    @photos = @post.photos
   end
 
   def create
     @post = current_user.posts.new(post_params)
     if @post.save
-      if params[:images]
-        params[:images].each do |img|
-          @post.photos.create(image: img)
-        end
-      end
+      save_photo
       redirect_to posts_path
       flash[:notice] = 'Post has been saved.'
     else
@@ -23,9 +24,19 @@ class PostsController < ApplicationController
     end
   end
 
-  # def show
-  #   @photos = @post.photos
-  # end
+  def edit
+  end
+
+  def update
+    if @post.update(post_params)
+      save_photo
+      redirect_to @post
+      flash[:notice] = 'Post has been updated.'
+    else
+      flash[:alert] = 'Something went wrong while saving the post!!!'
+      redirect_to @post
+    end
+  end
 
   # def destroy
   # end
@@ -42,5 +53,13 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:caption)
+  end
+
+  def save_photo
+    if params[:images]
+      params[:images].each do |img|
+        @post.photos.create(image: img)
+      end
+    end
   end
 end

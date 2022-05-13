@@ -4,12 +4,12 @@
 .center-this-div {
   border: 5px solid;
   padding: 20px;
-  margin: 50px 300px 0px 300px;
+  margin: 50px 0px 0px 25%;
   text-align: center;
   width: 50%;
 }
 
-.user-not-found{
+.user-not-found {
   color: red;
 }
 
@@ -17,22 +17,60 @@
   border: 2px solid rgb(164, 164, 164);
   width: 50%;
   padding: 20px;
+
+  h4 {
+    text-align: center;
+  }
 }
 
-.create-post h4 {
-  text-align: center;
-}
-
-.posts-homepage{
+.posts-homepage {
   padding: 20px;
   margin-top: 50px;
   width: 100%;
-}
 
-.posts-homepage h1 {
-  text-align: center;
-  border: 2px solid;
-  margin-bottom: 20px;
+  h1 {
+    text-align: center;
+    border: 2px solid;
+    margin-bottom: 20px;
+  }
+
+  .post {
+    padding: 0px 10px 0px 10px;
+
+    p {
+      display: inline;
+      color: rgb(0, 21, 255);
+      font-weight: bold;
+    }
+
+    a {
+      text-decoration: none;
+      color: black;
+    }
+
+    .photo {
+      margin-bottom: 20px;
+      border: 1px solid;
+    }
+
+    .delete-post{
+      float: right;
+      color: white;
+    }
+
+    .view-post {
+      color: white;
+      display:inline-block;
+      width:fit-content;
+      margin: 10px 0 10px 0;
+    }
+
+    .edit-post {
+      color: lightseagreen;
+      width: fit-content;
+
+    }
+  }
 }
 
 .post {
