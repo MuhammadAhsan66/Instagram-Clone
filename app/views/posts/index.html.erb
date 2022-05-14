@@ -1,12 +1,6 @@
 <div class = "create-post">
   <h4>Create Post</h4>
-  <div>
-    <%= form_for @post, :html => {:multipart => true} do |f| %>
-      <%= f.text_field :caption, class: "form-control", placeholder: "What's on your mind?", required: true %><br>
-      <%= file_field_tag "images[]", class: "form-control", type: :file, multiple: true, required: true%><br>
-      <%= f.submit "Post", class: "btn btn-primary" %>
-    <% end %>
-  </div>
+  <%= render 'create_post' %>
 </div>
 
 <div class="posts-homepage">

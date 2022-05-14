@@ -8,10 +8,6 @@ class PostsController < ApplicationController
     @post = Post.new
   end
 
-  def show
-    @photos = @post.photos
-  end
-
   def create
     @post = current_user.posts.new(post_params)
     if @post.save
@@ -24,8 +20,6 @@ class PostsController < ApplicationController
     end
   end
 
-  def edit; end
-
   def update
     if @post.update(post_params)
       save_photo
@@ -37,8 +31,20 @@ class PostsController < ApplicationController
     end
   end
 
-  # def destroy
-  # end
+  def destroy
+    if @post.destroy
+      flash[:notice] = 'Post deleted!'
+    else
+      flash[:alert] = 'Something went wrong ...'
+    end
+    redirect_to root_path
+  end
+
+  def show
+    @photos = @post.photos
+  end
+
+  def edit; end
 
   private
 
