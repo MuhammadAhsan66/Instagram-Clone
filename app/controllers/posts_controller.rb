@@ -4,7 +4,7 @@ class PostsController < ApplicationController
 
   def index
     # @posts = Post.all.limit(1000).includes(:photos, :user).order('created_at desc')
-    @posts = Post.all.includes(:photos, :user).order('created_at desc')
+    @posts = Post.all.order('created_at desc')
     @post = Post.new
   end
 
@@ -15,7 +15,7 @@ class PostsController < ApplicationController
       redirect_to posts_path
       flash[:notice] = 'Post has been saved.'
     else
-      flash[:alert] = 'Something went wrong while saving the post!!!'
+      flash[:alert] = 'Something went wrong while saving the post!'
       redirect_to posts_path
     end
   end
@@ -26,7 +26,7 @@ class PostsController < ApplicationController
       redirect_to @post
       flash[:notice] = 'Post has been updated.'
     else
-      flash[:alert] = 'Something went wrong while saving the post!!!'
+      flash[:alert] = 'Something went wrong while saving the post!'
       redirect_to @post
     end
   end
@@ -35,7 +35,7 @@ class PostsController < ApplicationController
     if @post.destroy
       flash[:notice] = 'Post deleted!'
     else
-      flash[:alert] = 'Something went wrong ...'
+      flash[:alert] = 'Something went wrong while deleting the post!'
     end
     redirect_to root_path
   end
@@ -61,10 +61,8 @@ class PostsController < ApplicationController
   end
 
   def save_photo
-    if params[:images]
-      params[:images].each do |img|
-        @post.photos.create(image: img)
-      end
+    params[:photos_list].each do |img|
+      @post.photos.create(image: img)
     end
   end
 end

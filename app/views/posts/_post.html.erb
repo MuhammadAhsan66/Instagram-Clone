@@ -2,7 +2,7 @@
   <p>By: </p> <a href = "<%= user_path(post.user) %>"> <%= post.user.name %> </a>
 
   <% if post.user.name == current_user.name %>
-    <%= link_to 'Delete', post_path(post), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete-post btn btn-danger" %>
+    <%= link_to 'Delete', post_path(post), method: :delete, data: { confirm: "Are you sure? \nYou want to delete this post?" }, class: "delete-post btn btn-danger" %>
   <% end %><br><br>
 
   <p>Photos: </p><br>
