@@ -1,27 +1,11 @@
 @import "bootstrap";
 @import "toastr";
+@import url(posts.scss);
+@import url(users.scss);
 
 .center-this-div {
   border: 5px solid;
   padding: 20px;
   margin: 50px 300px 0px 300px;
   text-align: center;
-}
-
-.user-not-found{
-  color: red;
-}
-
-.create-post {
-  border: 2px solid rgb(164, 164, 164);
-  padding: 20px;
-}
-
-.create-post h4 {
-  text-align: center;
-}
-
-.posts-homepage{
-  padding: 20px;
-  margin-top: 100px;
 }
