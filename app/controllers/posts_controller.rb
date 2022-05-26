@@ -14,7 +14,7 @@ class PostsController < ApplicationController
       @post.save
     end
   rescue ActiveRecord::RecordInvalid
-    render 'post_not_found'
+    render 'post_cannot_save'
   else
     save_photo
     redirect_to posts_path
@@ -22,23 +22,25 @@ class PostsController < ApplicationController
   end
 
   def update
-    if @post.update(post_params)
-      save_photo
-      redirect_to @post
-      flash[:notice] = 'Post has been updated.'
-    else
-      flash[:alert] = 'Something went wrong while saving the post!'
-      redirect_to @post
+    ActiveRecord::Base.transaction do
+      @post.update(post_params)
     end
+  rescue ActiveRecord::RecordInvalid
+    render 'post_cannot_save'
+  else
+    save_photo
+    redirect_to @post
+    flash[:notice] = 'Post has been Updated.'
   end
 
   def destroy
-    if @post.destroy
-      flash[:notice] = 'Post deleted!'
-    else
-      flash[:alert] = 'Something went wrong while deleting the post!'
+    ActiveRecord::Base.transaction do
+      @post.destroy
     end
-    redirect_to root_path
+  rescue ActiveRecord::RecordInvalid
+    render 'post_cannot_save'
+  else
+    flash[:notice] = 'Post deleted!'
   end
 
   def show
