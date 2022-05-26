@@ -8,5 +8,6 @@ Rails.application.routes.draw do
   resources :posts do
     resources :photos, only: %i[create]
     resources :likes, only: %i[create destroy], shallow: true
+    resources :comments, only: %i[index create destroy], shallow: true
   end
 end
