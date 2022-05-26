@@ -7,6 +7,6 @@ Rails.application.routes.draw do
   resources :users, only: %i[show]
   resources :posts do
     resources :photos, only: %i[create]
-    resources :likes, shallow: true
+    resources :likes, only: %i[create destroy], shallow: true
   end
 end
