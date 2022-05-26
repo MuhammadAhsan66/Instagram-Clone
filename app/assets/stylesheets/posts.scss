@@ -20,7 +20,7 @@
   }
 
   .post {
-    padding: 0px 10px 0px 10px;
+    padding: 0px 10px 20px 10px;
 
     p {
       display: inline;
@@ -43,6 +43,10 @@
       color: white;
     }
 
+    .user-name{
+      margin-bottom: 20px;
+    }
+
     .view-post {
       color: white;
       display:inline-block;
@@ -53,7 +57,6 @@
     .edit-post {
       color: lightseagreen;
       width: fit-content;
-
     }
   }
 }

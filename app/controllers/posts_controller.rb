@@ -10,14 +10,15 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.new(post_params)
-    if @post.save
-      save_photo
-      redirect_to posts_path
-      flash[:notice] = 'Post has been saved.'
-    else
-      flash[:alert] = 'Something went wrong while saving the post!'
-      redirect_to posts_path
+    ActiveRecord::Base.transaction do
+      @post.save
     end
+  rescue ActiveRecord::RecordInvalid
+    render 'post_not_found'
+  else
+    save_photo
+    redirect_to posts_path
+    flash[:notice] = 'Post has been saved.'
   end
 
   def update
@@ -50,11 +51,9 @@ class PostsController < ApplicationController
   private
 
   def find_post
-    @post = Post.find_by id: params[:id]
-    return if @post
-
-    flash[:danger] = 'Post does not exist!'
-    redirect_to root_path
+    @post = Post.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render 'post_not_found'
   end
 
   def post_params
