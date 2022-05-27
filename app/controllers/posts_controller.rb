@@ -3,7 +3,7 @@ class PostsController < ApplicationController
   before_action :find_post, only: %i[show destroy edit update]
 
   def index
-    @posts = Post.all.limit(1000).includes(:photos, :user, :likes).order('created_at desc')
+    @posts = Post.all.limit(1000).includes(:photos, :user, :likes, :comments).order('created_at desc')
     # @posts = Post.all.order('created_at desc')
     @post = Post.new
   end
@@ -46,6 +46,7 @@ class PostsController < ApplicationController
   def show
     @photos = @post.photos
     @likes = @post.likes.includes(:user)
+    @comments = Comment.new
   end
 
   def edit; end
