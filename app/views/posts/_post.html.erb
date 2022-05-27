@@ -1,6 +1,6 @@
 <div class="post">
   <div class="user-name">
-    <p>By: </p> <a href = "<%= user_path(post.user) %>"> <%= post.user.name %> </a>
+    <p>By: </p> <a href = "<%= user_path(post.user) %>" data-turbolinks="false"> <%= post.user.name %> </a>
     <% if post.user.id == current_user.id %>
       <%= link_to 'Delete', post_path(post), method: :delete, data: { confirm: "Are you sure? \nYou want to delete this post?" }, class: "delete-post btn btn-danger mt-2" %>
     <% end %>
