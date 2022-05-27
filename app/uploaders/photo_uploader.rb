@@ -14,7 +14,6 @@ class PhotoUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
-  process convert: 'png'
   process tags: ['post_picture']
 
   version :standard do
