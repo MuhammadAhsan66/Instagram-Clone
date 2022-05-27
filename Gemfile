@@ -16,6 +16,9 @@ gem 'toastr-rails'
 # Authentication purpose
 gem 'devise'
 
+# For file validation purpose
+gem 'file_validators', '~> 3.0'
+
 # For uploading of files
 gem 'carrierwave', '~> 2.2', '>= 2.2.2'
 gem 'cloudinary', '~> 1.23'
