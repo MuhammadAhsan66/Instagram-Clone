@@ -11,31 +11,31 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.new(post_params)
     ActiveRecord::Base.transaction do
-      @post.save
+      @post.save!
+      save_photo
     end
   rescue ActiveRecord::RecordInvalid
     render 'post_cannot_save'
   else
-    save_photo
     redirect_to posts_path
     flash[:notice] = 'Post has been saved.'
   end
 
   def update
     ActiveRecord::Base.transaction do
-      @post.update(post_params)
+      @post.update!(post_params)
+      save_photo
     end
   rescue ActiveRecord::RecordInvalid
     render 'post_cannot_save'
   else
-    save_photo
     redirect_to @post
     flash[:notice] = 'Post has been Updated.'
   end
 
   def destroy
     ActiveRecord::Base.transaction do
-      @post.destroy
+      @post.destroy!
     end
   rescue ActiveRecord::RecordInvalid
     render 'post_cannot_save'
@@ -64,7 +64,7 @@ class PostsController < ApplicationController
 
   def save_photo
     params[:photos_list].each do |img|
-      @post.photos.create(image: img)
+      @post.photos.create!(image: img)
     end
   end
 end
