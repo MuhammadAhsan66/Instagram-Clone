@@ -7,6 +7,4 @@ class Post < ApplicationRecord
   def liked_user(user)
     Like.find_by(user_id: user.id, post_id: id)
   end
-
-  # scope :liked_user, ->(user) { Like.find_by(user_id: user.id, post_id: id) }
 end
