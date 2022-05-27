@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
+  before_action :find_post, only: %i[destroy]
 
   def index
     @comments = @post.comments.includes(:user)
@@ -16,7 +17,6 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment = Comment.find(params[:id])
     @post = @comment.post
     if @comment.destroy
       respond_to :js
@@ -26,6 +26,12 @@ class CommentsController < ApplicationController
   end
 
   private
+  def find_post
+    @comment = Comment.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render 'comment_not_found'
+  end
+
   def comment_params
     params.required(:comment).permit(:user_id, :post_id, :body)
   end

@@ -2,7 +2,6 @@
   <div class="mb-2 ml-2">
     <% if comment.user.id == current_user.id || comment.post.user.id == current_user.id %>
       <%= link_to "X", comment_path(comment), method: :delete, data: { confirm: "Are you sure? \nYou want to delete this comment?" }, remote: true, class: "btn btn-danger text-white btn-sm" %>
-      <%= link_to "edit", comment_path(comment), method: :delete, remote: true, class: "btn btn-dark text-white btn-sm" %>
       -->
     <% end %>
     <span>
