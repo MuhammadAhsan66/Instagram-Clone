@@ -41,6 +41,7 @@ class PostsController < ApplicationController
     render 'post_cannot_save'
   else
     flash[:notice] = 'Post deleted!'
+    redirect_to root_path
   end
 
   def show
