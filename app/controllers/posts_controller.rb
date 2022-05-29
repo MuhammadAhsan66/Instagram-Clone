@@ -17,8 +17,8 @@ class PostsController < ApplicationController
   rescue ActiveRecord::RecordInvalid
     render 'post_cannot_save'
   else
-    redirect_to posts_path
     flash[:notice] = 'Post has been saved.'
+    redirect_to posts_path
   end
 
   def update
@@ -29,8 +29,8 @@ class PostsController < ApplicationController
   rescue ActiveRecord::RecordInvalid
     render 'post_cannot_save'
   else
-    redirect_to @post
     flash[:notice] = 'Post has been Updated.'
+    redirect_to @post
   end
 
   def destroy
