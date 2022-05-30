@@ -16,7 +16,7 @@ class StoriesController < ApplicationController
     render 'story_cannot_save'
   else
     flash[:notice] = 'Story has been saved.'
-    DeleteStoryJob.set(wait: 20.second).perform_later(@story)
+    DeleteStoryJob.set(wait: 1.day).perform_later(@story)
     redirect_to stories_path
   end
 
