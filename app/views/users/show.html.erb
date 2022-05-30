@@ -1,12 +1,14 @@
 <div class="center-this-div">
   <%= image_tag @user.image, width:100%>
   <br> <br>
-  <h3>
-    <%= @user.name%>
-  </h3>
-  <p>
-    <%= @user.email%>
-  </p>
+  <h3> <%= @user.name%> </h3>
+  <p> <%= @user.email%> </p>
+
+  <% unless @user.id == current_user.id %>
+    <div id="follow-btn">
+      <%= render 'follow' %>
+    </div>
+  <% end %>
 </div>
 <hr class="user-homepage">
 <div class="posts-homepage">
