@@ -9,9 +9,10 @@ gem 'rails', '~> 5.2.7'
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
-
 # For notification purpose
 gem 'toastr-rails'
+#Simple, efficient background processing for Ruby.
+gem 'sidekiq', '~> 6.4', '>= 6.4.2'
 
 # Authentication purpose
 gem 'devise'
