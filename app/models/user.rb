@@ -18,4 +18,8 @@ class User < ApplicationRecord
       where('name LIKE ?', "%#{term}%")
     end
   end
+
+  def is_owner?(post, current_user)
+    post.user.id == current_user.id
+  end
 end

@@ -3,6 +3,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_post, only: %i[show destroy edit update]
+  before_action :authorize_post, only: %i[destroy edit update]
 
   def index
     @posts = Post.all.limit(1000).includes(:photos, :user, :likes, :comments).order('created_at desc')
@@ -70,5 +71,12 @@ class PostsController < ApplicationController
     params[:photos_list].each do |img|
       @post.photos.create!(image: img)
     end
+  end
+
+  def authorize_post
+    authorize @post
+  rescue Pundit::NotAuthorizedError
+    flash[:alert] = 'You are not authorized to perform this action.'
+    redirect_to @post
   end
 end
