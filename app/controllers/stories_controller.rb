@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class StoriesController < ApplicationController
   before_action :authenticate_user!
   before_action :find_story, only: %i[destroy]
@@ -16,7 +18,7 @@ class StoriesController < ApplicationController
     render 'story_cannot_save'
   else
     flash[:notice] = 'Story has been saved.'
-    DeleteStoryJob.set(wait: 1.day).perform_later(@story)
+    DeleteStoryJob.set(wait: 30.seconds).perform_later(@story)
     redirect_to stories_path
   end
 
@@ -42,7 +44,6 @@ class StoriesController < ApplicationController
   #   flash[:notice] = 'Post has been Updated.'
   #   redirect_to @post
   # end
-
 
   # def show
   #   @photos = @post.photos

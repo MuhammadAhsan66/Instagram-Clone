@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class Photo < ApplicationRecord
   belongs_to :post, validate: true
   mount_uploader :image, PhotoUploader
   validates :image, presence: true
-  validates :image, file_size: { less_than: 1.megabytes }
+  validates :image, file_size: { less_than: 5.megabytes }
   validates_format_of :image, with: /([^\s]+(\.(?i)(jpg|png|jpeg))$)/
 
   LIMIT = 10
@@ -12,6 +14,7 @@ class Photo < ApplicationRecord
 
   def validate_max_photo
     return unless self.post
+
     if self.post.photos.count >= LIMIT
       errors.add(:base, :exceeded_quota)
     end

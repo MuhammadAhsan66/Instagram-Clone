@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LikesController < ApplicationController
   before_action :authenticate_user!
 
@@ -22,6 +24,7 @@ class LikesController < ApplicationController
   end
 
   private
+
   def like_params
     params.permit(:post_id)
   end

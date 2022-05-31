@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # app/controller/application_controlller.rb
 class ApplicationController < ActionController::Base
   # protect_from_forgery with: :exception

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   include Followable
   # Include default devise modules. Others available are:
@@ -14,8 +16,6 @@ class User < ApplicationRecord
   def self.search(term)
     if term
       where('name LIKE ?', "%#{term}%")
-    else
-      nil
     end
   end
 end

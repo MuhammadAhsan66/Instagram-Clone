@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_post, only: %i[destroy]
@@ -26,6 +28,7 @@ class CommentsController < ApplicationController
   end
 
   private
+
   def find_post
     @comment = Comment.find(params[:id])
   rescue ActiveRecord::RecordNotFound
