@@ -33,26 +33,6 @@ class StoriesController < ApplicationController
     redirect_to stories_path
   end
 
-  # def update
-  #   ActiveRecord::Base.transaction do
-  #     @post.update!(story_params)
-  #     save_photo
-  #   end
-  # rescue ActiveRecord::RecordInvalid
-  #   render 'post_cannot_save'
-  # else
-  #   flash[:notice] = 'Post has been Updated.'
-  #   redirect_to @post
-  # end
-
-  # def show
-  #   @photos = @post.photos
-  #   @likes = @post.likes.includes(:user)
-  #   @comments = Comment.new
-  # end
-
-  # def edit; end
-
   private
 
   def find_story
