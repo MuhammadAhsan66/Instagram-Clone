@@ -2,8 +2,8 @@
 
 class PostsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_post, only: %i[show destroy edit update]
-  before_action :authorize_post, only: %i[destroy edit update]
+  before_action :set_post, only: %i[edit show update destroy]
+  before_action :authorize_post, only: %i[edit update destroy]
 
   def index
     @posts = Post.all.includes(:photos, :user, :likes, :comments).order('created_at desc')

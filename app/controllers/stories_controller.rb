@@ -11,9 +11,7 @@ class StoriesController < ApplicationController
 
   def create
     @story = current_user.stories.new(story_params)
-    ActiveRecord::Base.transaction do
-      @story.save!
-    end
+    @story.save!
   rescue ActiveRecord::RecordInvalid
     render 'story_cannot_save'
   else
@@ -23,9 +21,7 @@ class StoriesController < ApplicationController
   end
 
   def destroy
-    ActiveRecord::Base.transaction do
-      @story.destroy!
-    end
+    @story.destroy!
   rescue ActiveRecord::RecordInvalid
     render 'story_cannot_save'
   else
