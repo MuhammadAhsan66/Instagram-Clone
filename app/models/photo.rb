@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 class Photo < ApplicationRecord
-  belongs_to :post, validate: true
   mount_uploader :image, PhotoUploader
+
+  belongs_to :post, validate: true
   validates :image, presence: true
   validates :image, file_size: { less_than: 5.megabytes }
   validates_format_of :image, with: /([^\s]+(\.(?i)(jpg|png|jpeg))$)/

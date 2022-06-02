@@ -2,11 +2,7 @@
 
 class CommentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_post, only: %i[destroy]
-
-  def index
-    @comments = @post.comments.includes(:user)
-  end
+  before_action :set_comment, only: %i[destroy]
 
   def create
     @comment = Comment.new(comment_params)
@@ -29,10 +25,8 @@ class CommentsController < ApplicationController
 
   private
 
-  def find_post
-    @comment = Comment.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    render 'comment_not_found'
+  def set_comment
+    @comment = Comment.find_by(id: params[:id])
   end
 
   def comment_params

@@ -2,7 +2,7 @@
 
 class StoriesController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_story, only: %i[destroy]
+  before_action :set_story, only: %i[destroy]
 
   def index
     @stories = Story.all.limit(1000).includes(:user).order('created_at desc')
@@ -35,10 +35,8 @@ class StoriesController < ApplicationController
 
   private
 
-  def find_story
-    @story = Story.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    render 'story_not_found'
+  def set_story
+    @story = Story.find_by(id: params[:id])
   end
 
   def story_params

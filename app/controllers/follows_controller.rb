@@ -2,21 +2,17 @@
 
 class FollowsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_user
+  before_action :set_user, only: %i[create destroy]
 
   def create
     if current_user.follow(@user.id)
-      respond_to do |format|
-        format.html { redirect_to @user }
-        format.js
-      end
+      respond_to :js
     end
   end
 
   def destroy
     if current_user.unfollow(@user.id)
       respond_to do |format|
-        format.html { redirect_to @user }
         format.js { render action: :create }
       end
     end
@@ -25,9 +21,6 @@ class FollowsController < ApplicationController
   private
 
   def set_user
-    # @user = User.find_by(username: params[:user_username])
-    @user = User.find(params[:user_id])
-  rescue ActiveRecord::RecordNotFound
-    render 'user_not_found'
+    @user = User.find_by(id: params[:user_id])
   end
 end
