@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2022_06_02_175056) do
   enable_extension "plpgsql"
 
   create_table "comments", force: :cascade do |t|
-    t.text "body"
+    t.text "body", null: false
     t.bigint "post_id"
     t.bigint "user_id"
     t.datetime "created_at", null: false
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 2022_06_02_175056) do
   end
 
   create_table "photos", force: :cascade do |t|
-    t.string "image"
+    t.string "image", null: false
     t.bigint "post_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 2022_06_02_175056) do
   end
 
   create_table "posts", force: :cascade do |t|
-    t.string "caption"
+    t.string "caption", null: false
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -61,8 +61,8 @@ ActiveRecord::Schema.define(version: 2022_06_02_175056) do
   end
 
   create_table "stories", force: :cascade do |t|
-    t.string "caption"
-    t.string "story_pic"
+    t.string "caption", null: false
+    t.string "story_pic", null: false
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -70,14 +70,14 @@ ActiveRecord::Schema.define(version: 2022_06_02_175056) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
+    t.string "email", null: false
+    t.string "encrypted_password", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "name"
+    t.string "name", null: false
     t.string "image"
     t.string "account_type", default: "private", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
