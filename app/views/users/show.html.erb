@@ -1,22 +1,24 @@
-<div class="center-this-div">
-  <%= image_tag @user.image, width:100%>
-  <br> <br>
-  <h3> <%= @user.name%> </h3>
-  <p> <%= @user.email%> </p>
+<% if @user %>
+  <div class="center-this-div">
+    <%= image_tag @user.image, width:100%>
+    <br> <br>
+    <h3> <%= @user.name%> </h3>
+    <p> <%= @user.email%> </p>
 
-  <% unless @user.id == current_user.id %>
-    <div id="follow-btn">
-      <%= render 'follow' %>
-    </div>
-  <% end %>
-</div>
-<hr class="user-homepage">
-<div class="posts-homepage">
-  <h1>All Posts </h1>
-  <%= render @user.posts %>
-</div>
-<hr class="user-homepage">
-<div class="posts-homepage">
-  <h1>All Stories </h1>
-  <%= render @user.stories %>
-</div>
+    <% unless @user.id == current_user.id %>
+      <div id="follow-btn">
+        <%= render 'follow' %>
+      </div>
+    <% end %>
+  </div>
+  <hr class="user-homepage">
+  <div class="posts-homepage">
+    <h1>All Posts </h1>
+    <%= render @user.posts %>
+  </div>
+  <hr class="user-homepage">
+  <div class="posts-homepage">
+    <h1>All Stories </h1>
+    <%= render @user.stories %>
+  </div>
+<% end %>

@@ -7,20 +7,20 @@ class LikesController < ApplicationController
   def create
     @like = current_user.likes.new(like_params)
     @post = @like.post
-    if @like.save
-      respond_to :js
-    else
-      flash[:alert] = 'Something went wrong while liking this post'
-    end
+    @like.save!
+  rescue ActiveRecord::RecordInvalid => invalid
+    flash.now[:alert] = invalid.record.errors.full_messages
+  ensure
+    respond_to :js
   end
 
   def destroy
     @post = @like.post
-    if @like.destroy
-      respond_to :js
-    else
-      flash[:alert] = 'Something went wrong while unliking this post'
-    end
+    @like.destroy
+  rescue ActiveRecord::RecordNotDestroyed => invalid
+    flash.now[:alert] = invalid.record.errors.full_messages
+  ensure
+    respond_to :js
   end
 
   private

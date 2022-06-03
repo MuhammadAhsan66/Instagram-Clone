@@ -16,10 +16,11 @@ class PostsController < ApplicationController
       @post.save!
       save_photo
     end
-  rescue ActiveRecord::RecordInvalid
-    render 'post_cannot_save'
+  rescue ActiveRecord::RecordInvalid => invalid
+    flash[:alert] = invalid.record.errors.full_messages
   else
     flash[:notice] = 'Post has been saved.'
+  ensure
     redirect_to posts_path
   end
 
@@ -28,8 +29,8 @@ class PostsController < ApplicationController
       @post.update!(post_params)
       save_photo
     end
-  rescue ActiveRecord::RecordInvalid
-    render 'post_cannot_save'
+  rescue ActiveRecord::RecordInvalid => invalid
+    flash[:alert] = invalid.record.errors.full_messages
   else
     flash[:notice] = 'Post has been Updated.'
     redirect_to @post
@@ -39,8 +40,8 @@ class PostsController < ApplicationController
     ActiveRecord::Base.transaction do
       @post.destroy!
     end
-  rescue ActiveRecord::RecordInvalid
-    render 'post_cannot_save'
+  rescue ActiveRecord::RecordNotDestroyed => invalid
+    flash.now[:alert] = invalid.record.errors.full_messages
   else
     flash[:notice] = 'Post deleted!'
     redirect_to root_path

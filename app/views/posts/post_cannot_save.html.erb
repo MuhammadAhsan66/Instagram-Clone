@@ -1,9 +1,9 @@
 <div class="center-this-div not-found">
-  <h1>We have encountered with an error while saving the post</h1>
+  <h1>Something went wrong </h1>
   <ul>
-    <li>Only these format are allowed: ( jpg, png, jpeg )</li>
-    <li>File Size should be less than 1 MB</li>
-    <li>Max 10 Photos are allowed</li>
+    <% @error.each do |m| %>
+      <li> <%= m %> </li>
+    <% end %>
   </ul>
 </div>
 

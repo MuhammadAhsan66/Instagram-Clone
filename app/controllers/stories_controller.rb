@@ -5,27 +5,29 @@ class StoriesController < ApplicationController
   before_action :set_story, only: %i[destroy]
 
   def index
-    @stories = Story.all.limit(1000).includes(:user).order('created_at desc')
+    @stories = Story.all.includes(:user).order('created_at desc')
     @story = Story.new
   end
 
   def create
     @story = current_user.stories.new(story_params)
     @story.save!
-  rescue ActiveRecord::RecordInvalid
-    render 'story_cannot_save'
+  rescue ActiveRecord::RecordInvalid => invalid
+    flash[:alert] = invalid.record.errors.full_messages
   else
     flash[:notice] = 'Story has been saved.'
-    DeleteStoryJob.set(wait: 30.seconds).perform_later(@story)
+    DeleteStoryJob.set(wait: 1.day).perform_later(@story)
+  ensure
     redirect_to stories_path
   end
 
   def destroy
     @story.destroy!
-  rescue ActiveRecord::RecordInvalid
-    render 'story_cannot_save'
+  rescue ActiveRecord::RecordInvalid => invalid
+    flash[:alert] = invalid.record.errors.full_messages
   else
     flash[:notice] = 'Story deleted!'
+  ensure
     redirect_to stories_path
   end
 

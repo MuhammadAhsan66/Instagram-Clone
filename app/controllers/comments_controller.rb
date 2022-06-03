@@ -6,21 +6,21 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Comment.new(comment_params)
-    if @comment.save
-      @post = @comment.post
-      respond_to :js
-    else
-      flash[:alert] = 'Something went wrong while commenting'
-    end
+    @post = @comment.post
+    @comment.save!
+  rescue ActiveRecord::RecordInvalid => invalid
+    flash.now[:alert] = invalid.record.errors.full_messages
+  ensure
+    respond_to :js
   end
 
   def destroy
     @post = @comment.post
-    if @comment.destroy
-      respond_to :js
-    else
-      flash[:alert] = 'Something went wrong while deleting comment'
-    end
+    @comment.destroy!
+  rescue ActiveRecord::RecordNotDestroyed => invalid
+    flash.now[:alert] = invalid.record.errors.full_messages
+  ensure
+    respond_to :js
   end
 
   private
