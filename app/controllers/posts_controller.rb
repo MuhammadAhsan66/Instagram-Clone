@@ -6,8 +6,8 @@ class PostsController < ApplicationController
   before_action :authorize_post, only: %i[edit update destroy]
 
   def index
-    @posts = Post.all.includes(:photos, :user, :likes, :comments).order('created_at desc')
-    @post = Post.new
+    # @posts = Post.all.includes(:photos, :user, :likes, :comments).order('created_at desc')
+    @pagy, @posts = pagy(Post.all.includes(:photos, :user, :likes, :comments).order('created_at desc'), page: params[:page], items: 5)
   end
 
   def create
