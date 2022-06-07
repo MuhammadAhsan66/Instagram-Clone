@@ -5,7 +5,7 @@
 <div class="posts-homepage">
   <h1>All Posts</h1>
 
-  <% Post.find_each do |post| %>
+  <% Post.includes(:photos, :user, :likes).find_each do |post| %>
     <%= render 'post', post: post %>
   <% end %>
 
