@@ -5,5 +5,7 @@
 
 <div class="posts-homepage">
   <h1>All Stories</h1>
-  <%= render @stories %>
+  <% Story.find_each do |story| %>
+    <%= render 'story', story: story %>
+  <% end %>
 </div>

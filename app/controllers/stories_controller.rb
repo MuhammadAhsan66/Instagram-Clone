@@ -4,11 +4,6 @@ class StoriesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_story, only: %i[destroy]
 
-  def index
-    @stories = Story.includes(:user).all.order('created_at desc')
-    @story = Story.new
-  end
-
   def create
     @story = current_user.stories.new(story_params)
     @story.save!

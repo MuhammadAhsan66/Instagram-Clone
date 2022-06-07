@@ -4,20 +4,10 @@
 </div>
 <div class="posts-homepage">
   <h1>All Posts</h1>
-<%
-=begin%>
- <%= pagy_bootstrap_nav(@pagy).html_safe %>
-<%
-=end%>
 
   <% Post.find_each do |post| %>
-    <%= render 'post', post:post %>
+    <%= render 'post', post: post %>
   <% end %>
 
 </div>
 <hr>
-<%
-=begin%>
- <%= pagy_bootstrap_nav(@pagy).html_safe %>
-<%
-=end%>
