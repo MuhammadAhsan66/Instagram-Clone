@@ -1,7 +1,7 @@
 <% if users.present? %>
   <% users.each do |user| %>
     <%= link_to user_path(user), class: "no-text-decoration normal-color" do %>
-      <div class="user-search-result-item" data-turbolinks="false"><%= user.name %></div>
+      <div class="user-search-result-item"><%= user.name %></div>
     <% end %>
   <% end %>
 <% else %>

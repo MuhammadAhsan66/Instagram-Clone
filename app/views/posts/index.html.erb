@@ -5,8 +5,8 @@
 <div class="posts-homepage">
   <h1>All Posts</h1>
 
-  <% Post.includes(:photos, :user, :likes).find_each do |post| %>
-    <%= render 'post', post: post %>
+  <% Post.includes(:photos, :user, :likes, :comments).find_in_batches(batch_size: 5) do |posts| %>
+    <%= render posts %>
   <% end %>
 
 </div>

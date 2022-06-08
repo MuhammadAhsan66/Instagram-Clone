@@ -2,7 +2,7 @@
 
 class CommentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_comment, only: %i[destroy]
+  before_action :set_comment, only: %i[edit update destroy]
 
   def create
     @comment = Comment.new(comment_params)
@@ -12,6 +12,12 @@ class CommentsController < ApplicationController
     flash.now[:alert] = invalid.record.errors.full_messages
   ensure
     respond_to :js
+  end
+
+  def edit
+  end
+
+  def update
   end
 
   def destroy

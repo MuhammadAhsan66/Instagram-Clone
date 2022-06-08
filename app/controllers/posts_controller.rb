@@ -16,7 +16,7 @@ class PostsController < ApplicationController
   else
     flash[:notice] = 'Post has been saved.'
   ensure
-    redirect_to posts_path
+    redirect_to @post
   end
 
   def update
