@@ -8,16 +8,18 @@ class CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
     @post = @comment.post
     @comment.save!
-  rescue ActiveRecord::RecordInvalid => invalid
-    flash.now[:alert] = invalid.record.errors.full_messages
+  rescue ActiveRecord::RecordInvalid => e
+    flash.now[:alert] = e.record.errors.full_messages
   ensure
     respond_to :js
   end
 
+  def edit; end
+
   def update
     @comment.update!(comment_params)
-  rescue ActiveRecord::RecordInvalid => invalid
-    flash[:alert] = invalid.record.errors.full_messages
+  rescue ActiveRecord::RecordInvalid => e
+    flash.now[:alert] = e.record.errors.full_messages
   ensure
     redirect_to @comment.post
   end
@@ -25,8 +27,8 @@ class CommentsController < ApplicationController
   def destroy
     @post = @comment.post
     @comment.destroy!
-  rescue ActiveRecord::RecordNotDestroyed => invalid
-    flash.now[:alert] = invalid.record.errors.full_messages
+  rescue ActiveRecord::RecordNotDestroyed => e
+    flash.now[:alert] = e.record.errors.full_messages
   ensure
     respond_to :js
   end

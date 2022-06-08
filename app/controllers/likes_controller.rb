@@ -8,8 +8,8 @@ class LikesController < ApplicationController
     @like = current_user.likes.new(like_params)
     @post = @like.post
     @like.save!
-  rescue ActiveRecord::RecordInvalid => invalid
-    flash.now[:alert] = invalid.record.errors.full_messages
+  rescue ActiveRecord::RecordInvalid => e
+    flash.now[:alert] = e.record.errors.full_messages
   ensure
     respond_to :js
   end
@@ -17,8 +17,8 @@ class LikesController < ApplicationController
   def destroy
     @post = @like.post
     @like.destroy
-  rescue ActiveRecord::RecordNotDestroyed => invalid
-    flash.now[:alert] = invalid.record.errors.full_messages
+  rescue ActiveRecord::RecordNotDestroyed => e
+    flash.now[:alert] = e.record.errors.full_messages
   ensure
     respond_to :js
   end

@@ -7,8 +7,8 @@ class StoriesController < ApplicationController
   def create
     @story = current_user.stories.new(story_params)
     @story.save!
-  rescue ActiveRecord::RecordInvalid => invalid
-    flash[:alert] = invalid.record.errors.full_messages
+  rescue ActiveRecord::RecordInvalid => e
+    flash[:alert] = e.record.errors.full_messages
   else
     flash[:notice] = 'Story has been saved.'
     DeleteStoryJob.set(wait: 1.day).perform_later(@story)
@@ -18,8 +18,8 @@ class StoriesController < ApplicationController
 
   def destroy
     @story.destroy!
-  rescue ActiveRecord::RecordInvalid => invalid
-    flash[:alert] = invalid.record.errors.full_messages
+  rescue ActiveRecord::RecordInvalid => e
+    flash[:alert] = e.record.errors.full_messages
   else
     flash[:notice] = 'Story deleted!'
   ensure

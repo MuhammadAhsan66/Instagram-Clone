@@ -2,11 +2,11 @@
 
 class PostsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_post, only: %i[edit show update destroy]
+  before_action :set_post, only: %i[edit update destroy]
   before_action :authorize_post, only: %i[edit update destroy]
 
   def index
-
+    @pagy, @posts = pagy(Post.includes(:photos, :user, :likes, :comments).order('created_at desc'), page: params[:page], items: 5)
     @post = Post.new
   end
 
@@ -16,18 +16,20 @@ class PostsController < ApplicationController
       @post.save!
       save_photo
     end
-  rescue ActiveRecord::RecordInvalid => invalid
-    flash[:alert] = invalid.record.errors.full_messages
+  rescue ActiveRecord::RecordInvalid => e
+    flash[:alert] = e.record.errors.full_messages
   else
     flash[:notice] = 'Post has been saved.'
   ensure
     redirect_to @post
   end
 
+  def edit; end
+
   def update
     @post.update!(post_params)
-  rescue ActiveRecord::RecordInvalid => invalid
-    flash[:alert] = invalid.record.errors.full_messages
+  rescue ActiveRecord::RecordInvalid => e
+    flash[:alert] = e.record.errors.full_messages
   else
     flash[:notice] = 'Post has been Updated.'
   ensure
@@ -36,8 +38,8 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy!
-  rescue ActiveRecord::RecordNotDestroyed => invalid
-    flash.now[:alert] = invalid.record.errors.full_messages
+  rescue ActiveRecord::RecordNotDestroyed => e
+    flash.now[:alert] = e.record.errors.full_messages
   else
     flash[:notice] = 'Post deleted!'
     redirect_to root_path

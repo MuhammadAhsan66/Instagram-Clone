@@ -1,5 +1,5 @@
 class PostPolicy < Struct.new(:user, :post)
-  include Pundit
+  include Pundit::Authorization
 
   def edit?
     user.is_owner? post, user
