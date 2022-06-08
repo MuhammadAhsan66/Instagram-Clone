@@ -14,10 +14,12 @@ class CommentsController < ApplicationController
     respond_to :js
   end
 
-  def edit
-  end
-
   def update
+    @comment.update!(comment_params)
+  rescue ActiveRecord::RecordInvalid => invalid
+    flash[:alert] = invalid.record.errors.full_messages
+  ensure
+    redirect_to @comment.post
   end
 
   def destroy

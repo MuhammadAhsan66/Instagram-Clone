@@ -5,6 +5,11 @@ class PostsController < ApplicationController
   before_action :set_post, only: %i[edit show update destroy]
   before_action :authorize_post, only: %i[edit update destroy]
 
+  def index
+
+    @post = Post.new
+  end
+
   def create
     @post = current_user.posts.new(post_params)
     ActiveRecord::Base.transaction do
@@ -20,21 +25,17 @@ class PostsController < ApplicationController
   end
 
   def update
-    ActiveRecord::Base.transaction do
-      @post.update!(post_params)
-      save_photo
-    end
+    @post.update!(post_params)
   rescue ActiveRecord::RecordInvalid => invalid
     flash[:alert] = invalid.record.errors.full_messages
   else
     flash[:notice] = 'Post has been Updated.'
+  ensure
     redirect_to @post
   end
 
   def destroy
-    ActiveRecord::Base.transaction do
-      @post.destroy!
-    end
+    @post.destroy!
   rescue ActiveRecord::RecordNotDestroyed => invalid
     flash.now[:alert] = invalid.record.errors.full_messages
   else
