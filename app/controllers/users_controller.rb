@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by(id: params[:id])
     if @user
-      @user.image = @user == current_user ? 'current_user_pic' : 'users_pic'
+      @user.image = @user == current_user ? 'current_user_pic.png' : 'users_pic.png'
     end
   end
 end
