@@ -1,7 +1,7 @@
 # Ruby version
 
-*Ruby: 2.5
-*Rails: 5.2
+* Ruby: 2.5
+* Rails: 5.2
 
 # System dependencies
 
