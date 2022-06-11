@@ -1,15 +1,21 @@
-class PostPolicy < Struct.new(:user, :post)
+class PostPolicy
   include Pundit::Authorization
+  attr_reader :user, :post
+
+  def initialize(user, post)
+    @user = user
+    @post = post
+  end
 
   def edit?
-    user.is_owner? post, user
+    user.owner? post, user
   end
 
   def update?
-    user.is_owner? post, user
+    user.owner? post, user
   end
 
   def destroy?
-    user.is_owner? post, user
+    user.owner? post, user
   end
 end

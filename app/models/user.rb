@@ -15,14 +15,13 @@ class User < ApplicationRecord
   validates :email, uniqueness: true
   validates_format_of :email, with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/, message: "format is invalid"
 
-
   def self.search(term)
-    if term
-      where('name LIKE ?', "%#{term}%")
-    end
+    return unless term
+
+    where('name LIKE ?', "%#{term}%")
   end
 
-  def is_owner?(post, current_user)
+  def owner?(post, current_user)
     post.user.id == current_user.id
   end
 end

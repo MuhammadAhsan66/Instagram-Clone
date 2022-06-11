@@ -2,31 +2,37 @@
 
 class PostsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_post, only: %i[edit update destroy]
-  before_action :authorize_post, only: %i[edit update destroy]
+  before_action :set_post, only: %i[edit show update destroy]
 
   def index
-    @pagy, @posts = pagy(Post.includes(:photos, :user, :likes, :comments).order('created_at desc'), page: params[:page], items: 5)
+    @pagy, @posts = pagy(Post.includes(:photos, :user, :likes, :comments).order('created_at desc'),
+                         page: params[:page], items: 5)
     @post = Post.new
   end
 
   def create
     @post = current_user.posts.new(post_params)
+    post_serivce = PostService.new(params, @post)
     ActiveRecord::Base.transaction do
       @post.save!
-      save_photo
+      post_serivce.save_photo
     end
   rescue ActiveRecord::RecordInvalid => e
     flash[:alert] = e.record.errors.full_messages
   else
     flash[:notice] = 'Post has been saved.'
   ensure
-    redirect_to @post
+    redirect_to posts_path
   end
 
-  def edit; end
+  def show; end
+
+  def edit
+    authorize @post
+  end
 
   def update
+    authorize @post
     @post.update!(post_params)
   rescue ActiveRecord::RecordInvalid => e
     flash[:alert] = e.record.errors.full_messages
@@ -37,6 +43,7 @@ class PostsController < ApplicationController
   end
 
   def destroy
+    authorize @post
     @post.destroy!
   rescue ActiveRecord::RecordNotDestroyed => e
     flash.now[:alert] = e.record.errors.full_messages
@@ -53,18 +60,5 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:caption)
-  end
-
-  def save_photo
-    params[:photos_list].each do |img|
-      @post.photos.create!(image: img)
-    end
-  end
-
-  def authorize_post
-    authorize @post
-  rescue Pundit::NotAuthorizedError
-    flash[:alert] = 'You are not authorized to perform this action.'
-    redirect_to @post
   end
 end

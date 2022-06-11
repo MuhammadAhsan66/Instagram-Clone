@@ -7,17 +7,11 @@ class Photo < ApplicationRecord
   validates :image, presence: true
   validates :image, file_size: { less_than: 5.megabytes, message: "size must be smaller than 5 MB" }
   validates_format_of :image, with: /([^\s]+(\.(?i)(jpg|png|jpeg))$)/, message: "format is invalid. Choose JPG, PNG or JPEG"
-
-  LIMIT = 10
-  validate do |record|
-    record.validate_max_photo
-  end
+  validate :validate_max_photo
 
   def validate_max_photo
-    return unless self.post
+    return unless post && post.photos.count >= 10
 
-    if self.post.photos.count >= LIMIT
-      errors.add(:image, "count should be less than or equall to 10")
-    end
+    errors.add(:image, "count should be less than or equall to 10")
   end
 end
