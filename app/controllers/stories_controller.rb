@@ -15,7 +15,7 @@ class StoriesController < ApplicationController
     flash[:alert] = e.record.errors.full_messages
   else
     flash[:notice] = 'Story has been saved.'
-    DeleteStoryJob.set(wait: 10.seconds).perform_later(@story)
+    DeleteStoryJob.set(wait: 1.day).perform_later(@story)
   ensure
     redirect_to stories_path
   end
