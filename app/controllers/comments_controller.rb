@@ -6,6 +6,7 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Comment.new(comment_params)
+    authorize @comment
     @post = @comment.post
     @comment.save!
   rescue ActiveRecord::RecordInvalid => e
@@ -14,9 +15,12 @@ class CommentsController < ApplicationController
     respond_to :js
   end
 
-  def edit; end
+  def edit
+    authorize @comment
+  end
 
   def update
+    authorize @comment
     @comment.update!(comment_params)
   rescue ActiveRecord::RecordInvalid => e
     flash.now[:alert] = e.record.errors.full_messages
@@ -25,6 +29,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
+    authorize @comment
     @post = @comment.post
     @comment.destroy!
   rescue ActiveRecord::RecordNotDestroyed => e

@@ -2,6 +2,7 @@
 
 class User < ApplicationRecord
   include Followable
+  include Authorizable
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   has_many :posts, dependent: :destroy
@@ -13,15 +14,11 @@ class User < ApplicationRecord
 
   validates :name, presence: true, length: { maximum: 50 }
   validates :email, uniqueness: true
-  validates_format_of :email, with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/, message: "format is invalid"
+  validates_format_of :email, with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/, message: 'format is invalid'
 
   def self.search(term)
     return unless term
 
     where('name LIKE ?', "%#{term}%")
-  end
-
-  def owner?(post, current_user)
-    post.user.id == current_user.id
   end
 end

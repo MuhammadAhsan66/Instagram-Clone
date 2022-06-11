@@ -4,6 +4,10 @@ class StoriesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_story, only: %i[destroy]
 
+  def index
+    @pagy, @stories = pagy(Story.order('created_at desc'), page: params[:page], items: 5)
+  end
+
   def create
     @story = current_user.stories.new(story_params)
     @story.save!
@@ -17,6 +21,7 @@ class StoriesController < ApplicationController
   end
 
   def destroy
+    authorize @story
     @story.destroy!
   rescue ActiveRecord::RecordInvalid => e
     flash[:alert] = e.record.errors.full_messages
