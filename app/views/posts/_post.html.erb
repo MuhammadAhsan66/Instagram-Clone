@@ -30,7 +30,7 @@
     </div>
 
     <div id="comment-post-<%= post.id.to_s %>">
-      <%= render 'comments/all_comments', {comments: post.comments} %>
+      <%= render 'comments/all_comments', {comments: post.comments.includes(:user, :post)} %>
     </div>
   </div>
 

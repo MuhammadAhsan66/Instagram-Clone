@@ -6,7 +6,6 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Comment.new(comment_params)
-    authorize @comment
     @post = @comment.post
     @comment.save!
   rescue ActiveRecord::RecordInvalid => e
