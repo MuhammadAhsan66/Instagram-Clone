@@ -7,6 +7,9 @@ Things you may want to cover:
 
 * Ruby version
 
+Ruby: 2.5
+Rails: 5.2
+
 * System dependencies
 
 * Configuration
