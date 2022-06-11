@@ -1,24 +1,42 @@
-# Ruby version
+# Install
 
-* Ruby: 2.7.5
-* Rails: 5.2.7
+#### Clone the repository
+
+```shell
+git https://github.com/Muhammad-Ahsan-devs/Rails-Project.git
+cd Rails-Project
+```
+
+#### Check your Ruby version
+
+```shell
+ruby -v
+```
+
+The ouput should start with something like `ruby 2.7.5` If not, install the right ruby version.
+
+#### Check your Rails version
+
+```shell
+rails -v
+```
+
+The ouput should start with something like `Rails 5.2.7` If not, install the right ruby version
 
 # System dependencies
-All the system dependencies are includes in gemfile.
-Just run this command to build the dependencies:
+All the system dependencies are includes in gemfile. Just run this command to build the dependencies:
 
+``` bundle install ```
 
+# Database initialization
 
-# Configuration
+```shell
+rails db:create db:migrate db:seed
+```
 
-* Database creation
+# How to run
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```shell
+rails s
+```
+And now you can visit the site with the URL http://localhost:3000
