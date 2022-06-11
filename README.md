@@ -40,3 +40,7 @@ rails db:create db:migrate db:seed
 rails s
 ```
 And now you can visit the site with the URL http://localhost:3000
+
+# Deployed Link
+
+Here is the deployed link of this project on heroku: https://instagram-clone-devs.herokuapp.com/
