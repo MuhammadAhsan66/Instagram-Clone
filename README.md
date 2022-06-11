@@ -4,6 +4,10 @@
 * Rails: 5.2.7
 
 # System dependencies
+All the system dependencies are includes in gemfile.
+Just run this command to build the dependencies:
+
+
 
 # Configuration
 
