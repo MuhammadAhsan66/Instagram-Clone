@@ -6,6 +6,6 @@
 <div class="posts-homepage">
   <h1>All Stories</h1>
   <% Story.includes(:user).find_in_batches(batch_size: 5) do |stories| %>
-    <%= render @stories %>
+    <%= render stories %>
   <% end %>
 </div>
