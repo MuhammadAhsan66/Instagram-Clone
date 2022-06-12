@@ -20,9 +20,12 @@ module Followable
   end
 
   def following?(user_id)
-    relationship = Follow.find_by(follower_id: id, following_id: user_id)
-    return true if relationship
+    return true if Follow.find_by(follower_id: id, following_id: user_id)
+  end
 
-    # Follow.find_by(follower_id: id, following_id: user_id).any?
+  def follow_status(current_user)
+    return 'pending' unless current_user.following?(id)
+
+    follower_relationships.find_by(follower_id: current_user.id, following_id: id).status
   end
 end
