@@ -28,7 +28,9 @@ class PostsController < ApplicationController
     redirect_to posts_path
   end
 
-  def show; end
+  def show
+    authorize @post
+  end
 
   def edit
     authorize @post

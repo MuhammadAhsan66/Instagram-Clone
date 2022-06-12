@@ -7,6 +7,10 @@ class PostPolicy
     @post = post
   end
 
+  def show?
+    user.view? post, user
+  end
+
   def edit?
     user.owner? post, user
   end
