@@ -5,7 +5,7 @@ class StoriesController < ApplicationController
   before_action :set_story, only: %i[destroy]
 
   def index
-    @pagy, @stories = pagy(Story.order('created_at desc'), page: params[:page], items: 5)
+    @s_pagy, @stories = pagy(Story.includes(:user).order('created_at desc'), page: params[:page], items: 5)
   end
 
   def create

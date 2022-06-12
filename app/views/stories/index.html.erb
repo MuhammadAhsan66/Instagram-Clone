@@ -5,5 +5,7 @@
 
 <div class="posts-homepage">
   <h1>All Stories</h1>
+    <%= pagy_bootstrap_nav(@s_pagy).html_safe if @s_pagy.pages > 1 %>
     <%= render @stories %>
+    <%= pagy_bootstrap_nav(@s_pagy).html_safe if @s_pagy.pages > 1 %>
 </div>
