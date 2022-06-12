@@ -14,5 +14,6 @@
       </div>
       <p>Caption: </p><%= story.caption %>
     </div>
+      <p>Time: </p><%= time_ago_in_words(story.created_at) %>
   </div>
 <% end %>
