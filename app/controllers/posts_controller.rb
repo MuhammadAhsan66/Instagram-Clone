@@ -4,11 +4,6 @@ class PostsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_post, only: %i[show edit update destroy]
 
-  def index
-    @pagy, @posts = pagy(Post.includes(:photos, :user, :likes, :comments).order('created_at desc'),
-                         page: params[:page], items: 5)
-  end
-
   def new
     @post = Post.new
   end
@@ -25,7 +20,7 @@ class PostsController < ApplicationController
   else
     flash[:notice] = 'Post has been saved.'
   ensure
-    redirect_to posts_path
+    redirect_to @post
   end
 
   def show

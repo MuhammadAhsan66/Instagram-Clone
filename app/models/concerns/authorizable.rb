@@ -8,10 +8,10 @@ module Authorizable
   end
 
   # This function will authorize users to see post according to the post owner account type
-  def view?(post, current_user)
-    return true if post.user.account_type == 'public'
+  def view?(record, current_user)
+    return true if record.user.account_type == 'public'
 
-    post.user.account_type == 'private' && current_user.following?(post.user) || post.user_id == current_user.id
+    record.user.account_type == 'private' && current_user.following?(record.user) || record.user_id == current_user.id
   end
 
   def commnet_owner?(comment, current_user)

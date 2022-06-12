@@ -7,6 +7,10 @@ class StoryPolicy
     @story = story
   end
 
+  def show?
+    user.view? story, user
+  end
+
   def destroy?
     user.owner? story, user
   end

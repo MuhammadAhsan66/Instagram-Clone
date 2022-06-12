@@ -2,7 +2,7 @@
 
 class StoriesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_story, only: %i[destroy]
+  before_action :set_story, only: %i[show destroy]
 
   def index
     @s_pagy, @stories = pagy(Story.includes(:user).order('created_at desc'), page: params[:page], items: 5)
@@ -17,7 +17,11 @@ class StoriesController < ApplicationController
     flash[:notice] = 'Story has been saved.'
     DeleteStoryJob.set(wait: 1.day).perform_later(@story)
   ensure
-    redirect_to stories_path
+    redirect_to @story
+  end
+
+  def show
+    authorize @story
   end
 
   def destroy
