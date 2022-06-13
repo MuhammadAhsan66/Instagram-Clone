@@ -2,7 +2,7 @@
 
 class StoriesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_story, only: %i[show destroy]
+  before_action :set_story, only: %i[destroy]
 
   def create
     @story = Story.new(story_params)
@@ -14,10 +14,6 @@ class StoriesController < ApplicationController
     DeleteStoryJob.set(wait: 1.day).perform_later(@story)
   ensure
     redirect_to stories_path
-  end
-
-  def show
-    authorize @story
   end
 
   def destroy

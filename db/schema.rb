@@ -17,8 +17,8 @@ ActiveRecord::Schema.define(version: 2022_06_12_085625) do
 
   create_table "comments", force: :cascade do |t|
     t.text "body", null: false
-    t.bigint "post_id"
-    t.bigint "user_id"
+    t.bigint "post_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_comments_on_post_id"
@@ -37,8 +37,8 @@ ActiveRecord::Schema.define(version: 2022_06_12_085625) do
   end
 
   create_table "likes", force: :cascade do |t|
-    t.bigint "post_id"
-    t.bigint "user_id"
+    t.bigint "post_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_likes_on_post_id"
@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 2022_06_12_085625) do
 
   create_table "photos", force: :cascade do |t|
     t.string "image", null: false
-    t.bigint "post_id"
+    t.bigint "post_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_photos_on_post_id"
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 2022_06_12_085625) do
 
   create_table "posts", force: :cascade do |t|
     t.string "caption", null: false
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 2022_06_12_085625) do
   create_table "stories", force: :cascade do |t|
     t.string "caption", null: false
     t.string "story_pic", null: false
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_stories_on_user_id"
@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(version: 2022_06_12_085625) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name", null: false
-    t.string "image"
+    t.string "image", null: false
     t.string "account_type", default: "private", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
