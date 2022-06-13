@@ -10,7 +10,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :stories, dependent: :destroy
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :rememberable, :validatable
 
   validates :name, presence: true, length: { maximum: 50 }
   validates :email, uniqueness: true
