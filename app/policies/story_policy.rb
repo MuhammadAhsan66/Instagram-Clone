@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class StoryPolicy
   include Pundit::Authorization
   attr_reader :user, :story

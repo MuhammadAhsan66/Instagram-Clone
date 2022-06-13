@@ -4,12 +4,8 @@ class DeleteStoryJob < ApplicationJob
   queue_as :default
 
   def perform(story)
-    ActiveRecord::Base.transaction do
-      if story
-        story.destroy!
-      end
-    end
-  rescue ActiveRecord::RecordInvalid
-    render 'stories/story_cannot_save'
+    story&.destroy!
+  rescue ActiveRecord::RecordInvalid => e
+    flash[:alert] = e.record.errors.full_messages
   end
 end

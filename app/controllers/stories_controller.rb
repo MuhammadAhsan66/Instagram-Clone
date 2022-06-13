@@ -5,7 +5,7 @@ class StoriesController < ApplicationController
   before_action :set_story, only: %i[show destroy]
 
   def create
-    @story = current_user.stories.new(story_params)
+    @story = Story.new(story_params)
     @story.save!
   rescue ActiveRecord::RecordInvalid => e
     flash[:alert] = e.record.errors.full_messages
@@ -38,6 +38,6 @@ class StoriesController < ApplicationController
   end
 
   def story_params
-    params.require(:story).permit(:caption, :story_pic)
+    params.require(:story).permit(:caption, :story_pic, :user_id)
   end
 end

@@ -27,5 +27,12 @@ Lint/AmbiguousBlockAssociation:
   Exclude:
     - spec/**/*
 
+Rails/InverseOf:
+  Enabled: false
+
+Rails/NotNullColumn:
+  Enabled: false
+
 Style/Documentation:
   Enabled: false
+

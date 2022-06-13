@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PostPolicy
   include Pundit::Authorization
   attr_reader :user, :post

@@ -9,7 +9,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = current_user.posts.new(post_params)
+    @post = Post.new(post_params)
     post_serivce = PostService.new(params, @post)
     ActiveRecord::Base.transaction do
       @post.save!
@@ -46,7 +46,7 @@ class PostsController < ApplicationController
     authorize @post
     @post.destroy!
   rescue ActiveRecord::RecordNotDestroyed => e
-    flash.now[:alert] = e.record.errors.full_messages
+    flash[:alert] = e.record.errors.full_messages
   else
     flash[:notice] = 'Post deleted!'
     redirect_to root_path
@@ -59,6 +59,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:caption)
+    params.require(:post).permit(:caption, :user_id)
   end
 end

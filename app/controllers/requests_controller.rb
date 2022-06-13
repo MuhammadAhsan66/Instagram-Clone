@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RequestsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_request, only: %i[edit destroy]
