@@ -16,4 +16,5 @@ Rails.application.routes.draw do
     resources :comments, shallow: true
   end
   resources :stories
+  resources :requests, only: %i[index edit destroy]
 end

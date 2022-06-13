@@ -1,0 +1,5 @@
+<% @requests.each do | request | %>
+  <h3><a href = "<%= user_path(User.find(request.follower_id)) %>"> <%= User.find(request.follower_id).name %> </a> wants to follow you: <h3>
+  <%= link_to "Accept", edit_request_path(request), class: "btn btn-success" %>
+  <%= link_to "Reject", request_path(request), method: :delete, data: { confirm: "Are you sure? \nYou want to delete this request?" }, class: 'btn btn-danger' %> <br><br>
+<% end %>
