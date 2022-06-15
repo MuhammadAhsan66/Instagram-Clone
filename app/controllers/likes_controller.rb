@@ -16,17 +16,14 @@ class LikesController < ApplicationController
 
   def destroy
     @post = @like.post
-    @like.destroy
-  rescue ActiveRecord::RecordNotDestroyed => e
-    flash.now[:alert] = e.record.errors.full_messages
-  ensure
+    @like.destroy!
     respond_to :js
   end
 
   private
 
   def set_like
-    @like = Like.find_by(id: params[:id])
+    @like = Like.find(params[:id])
   end
 
   def like_params

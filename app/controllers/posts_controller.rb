@@ -15,11 +15,7 @@ class PostsController < ApplicationController
       @post.save!
       post_serivce.save_photo
     end
-  rescue ActiveRecord::RecordInvalid => e
-    flash[:alert] = e.record.errors.full_messages
-  else
     flash[:notice] = 'Post has been saved.'
-  ensure
     redirect_to @post
   end
 
@@ -34,20 +30,13 @@ class PostsController < ApplicationController
   def update
     authorize @post
     @post.update!(post_params)
-  rescue ActiveRecord::RecordInvalid => e
-    flash[:alert] = e.record.errors.full_messages
-  else
     flash[:notice] = 'Post has been Updated.'
-  ensure
     redirect_to @post
   end
 
   def destroy
     authorize @post
     @post.destroy!
-  rescue ActiveRecord::RecordNotDestroyed => e
-    flash[:alert] = e.record.errors.full_messages
-  else
     flash[:notice] = 'Post deleted!'
     redirect_to root_path
   end
@@ -55,7 +44,7 @@ class PostsController < ApplicationController
   private
 
   def set_post
-    @post = Post.find_by(id: params[:id])
+    @post = Post.find(params[:id])
   end
 
   def post_params

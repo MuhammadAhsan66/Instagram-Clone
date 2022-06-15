@@ -18,8 +18,8 @@
     </div>
 
     <div class = "like-button" id = "like-button-<%= post.id.to_s %>">
-      <% if post.liked_user(current_user).present? %>
-        <%= link_to "Liked", like_path(post.liked_user(current_user)), method: :delete, remote: true, class: "btn btn-success" %>
+      <% if post.like_by(current_user) %>
+        <%= link_to "Liked", like_path(post.like_by(current_user)), method: :delete, remote: true, class: "btn btn-success" %>
       <% else %>
         <%= link_to "Like", post_likes_path(post), method: :post, remote: true, class: "btn btn-outline-success" %>
       <% end %>
@@ -31,12 +31,14 @@
       </div>
 
       <div id="comment-post-<%= post.id.to_s %>">
-        <%= render 'comments/all_comments', {comments: post.comments.includes(:user, :post)} %>
+        <%= render 'comments/all_comments', {comments: comments(post) } %>
       </div>
     </div>
 
     <div>
-      <%= link_to 'View Post', post_path(post), class: "view-post btn btn-info" %>
+      <% unless controller_name == 'posts' && action_name == 'show' %>
+        <%= link_to 'View Post', post_path(post), class: "view-post btn btn-info" %>
+      <% end %>
       <% if policy(post).edit? %>
         <%= link_to 'Edit Post', edit_post_path(post), class: "edit-post btn btn-dark" %>
       <% end %>

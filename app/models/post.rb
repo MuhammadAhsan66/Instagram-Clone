@@ -7,7 +7,8 @@ class Post < ApplicationRecord
   has_many :comments, -> { order 'created_at desc' }, dependent: :destroy
   validates :caption, presence: true, length: { maximum: 100 }
 
-  def liked_user(user)
+  # def liked_user(user)
+  def like_by(user)
     Like.find_by(user_id: user.id, post_id: id)
   end
 end

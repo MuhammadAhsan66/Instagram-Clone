@@ -21,9 +21,6 @@ class CommentsController < ApplicationController
   def update
     authorize @comment
     @comment.update!(comment_params)
-  rescue ActiveRecord::RecordInvalid => e
-    flash.now[:alert] = e.record.errors.full_messages
-  ensure
     redirect_to @comment.post
   end
 
@@ -31,19 +28,16 @@ class CommentsController < ApplicationController
     authorize @comment
     @post = @comment.post
     @comment.destroy!
-  rescue ActiveRecord::RecordNotDestroyed => e
-    flash.now[:alert] = e.record.errors.full_messages
-  ensure
     respond_to :js
   end
 
   private
 
   def set_comment
-    @comment = Comment.find_by(id: params[:id])
+    @comment = Comment.find(params[:id])
   end
 
   def comment_params
-    params.required(:comment).permit(:user_id, :post_id, :body)
+    params.require(:comment).permit(:user_id, :post_id, :body)
   end
 end

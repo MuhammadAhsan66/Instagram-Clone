@@ -7,30 +7,22 @@ class StoriesController < ApplicationController
   def create
     @story = Story.new(story_params)
     @story.save!
-  rescue ActiveRecord::RecordInvalid => e
-    flash[:alert] = e.record.errors.full_messages
-  else
     flash[:notice] = 'Story has been saved.'
     DeleteStoryJob.set(wait: 1.day).perform_later(@story)
-  ensure
     redirect_to stories_path
   end
 
   def destroy
     authorize @story
     @story.destroy!
-  rescue ActiveRecord::RecordInvalid => e
-    flash[:alert] = e.record.errors.full_messages
-  else
     flash[:notice] = 'Story deleted!'
-  ensure
     redirect_to stories_path
   end
 
   private
 
   def set_story
-    @story = Story.find_by(id: params[:id])
+    @story = Story.find(params[:id])
   end
 
   def story_params
