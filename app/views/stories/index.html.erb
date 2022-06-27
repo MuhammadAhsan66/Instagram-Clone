@@ -1,0 +1,11 @@
+<div class = "create-post">
+  <h4>Create Story</h4>
+  <%= render 'create_story' %>
+</div>
+
+<div class="posts-homepage">
+  <h1>All Stories</h1>
+  <% stories().find_in_batches(batch_size: 5) do |stories| %>
+    <%= render stories %>
+  <% end %>
+</div>

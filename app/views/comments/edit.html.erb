@@ -1,0 +1,7 @@
+<div class = "create-post w-100">
+  <h4>Edit Comment</h4>
+  <%= form_for @comment, :html => {:class => "w-100"} do |f| %>
+    <%= f.text_field :body, class: "form-control border-1 mb-3", placeholder: "Add a comment ...", required: true %>
+    <%= f.submit "Edit", class: "btn btn-primary" %>
+  <% end %>
+</div>

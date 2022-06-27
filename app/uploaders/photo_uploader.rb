@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PhotoUploader < CarrierWave::Uploader::Base
   include Cloudinary::CarrierWave
   # Include RMagick or MiniMagick support:
@@ -14,12 +16,10 @@ class PhotoUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
-
-  process convert: 'png'
   process tags: ['post_picture']
 
   version :standard do
-    process resize_to_fill: [100, 150, :north]
+    process resize_to_fill: [200, 200, :north]
   end
 
   version :thumbnail do

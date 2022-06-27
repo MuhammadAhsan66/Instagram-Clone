@@ -2,10 +2,17 @@
 @import "toastr";
 @import url(posts.scss);
 @import url(users.scss);
+@import url(likes.scss);
+@import url(comments.scss);
 
 .center-this-div {
   border: 5px solid;
   padding: 20px;
-  margin: 50px 300px 0px 300px;
+  margin: 5% 0% 0% 25%;
   text-align: center;
+  width: 50%;
+}
+
+.not-found {
+  color: red;
 }

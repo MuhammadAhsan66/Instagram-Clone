@@ -1,7 +1,18 @@
-// Place all the styles related to the Users controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.user-homepage{
+  margin-top: 50px;
+}
 
-.user-not-found{
-  color: red;
+.user-name{
+  margin-bottom: 20px;
+}
+
+.user-search-result-item {
+  padding: 15px;
+  text-decoration: none;
+  color: black;
+
+}
+
+.user-search-result-item:hover {
+  background-color: #fafafa;
 }

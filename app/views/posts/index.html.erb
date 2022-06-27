@@ -1,19 +1,9 @@
 <div class = "create-post">
-  <h4>Create Post</h4>
-  <div>
-    <%= form_for @post, :html => {:multipart => true} do |f| %>
-      <%= f.text_field :caption, class: "form-control", placeholder: "What's on your mind?" %><br>
-      <%= file_field_tag "images[]", class: "form-control", type: :file, multiple: true %><br>
-      <%= f.submit "Post", class: "btn btn-primary" %>
-    <% end %>
-  </div>
+  <h4><%= link_to "Create New Post", new_post_path %></h4>
 </div>
-
 <div class="posts-homepage">
-  <% @posts.each do |post| %>
-    <p><%= post.caption %></p>
-    <% post.photos.each do |photo| %>
-      <%= image_tag photo.image.url(:standard) %>
-    <% end %><br>
+  <h1>All Posts</h1>
+  <% posts().find_in_batches(batch_size: 5) do |posts| %>
+    <%= render posts %>
   <% end %>
 </div>

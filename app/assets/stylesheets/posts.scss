@@ -1,9 +1,6 @@
-// Place all the styles related to the Posts controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
 .create-post {
-  border: 2px solid rgb(164, 164, 164);
+  border: 2px dotted rgb(164, 164, 164);
+  width: 45%;
   padding: 20px;
 
   h4 {
@@ -11,8 +8,58 @@
   }
 }
 
-
 .posts-homepage {
   padding: 20px;
-  margin-top: 100px;
+  margin-top: 50px;
+  width: 100%;
+
+  h1 {
+    text-align: center;
+    border: 5px double;
+    margin-bottom: 20px;
+  }
+
+  .post {
+    padding: 0px 10px 20px 10px;
+    border: 2px solid;
+
+    p {
+      display: inline;
+      color: rgb(0, 21, 255);
+      font-weight: bold;
+    }
+
+    a {
+      text-decoration: none;
+      color: black;
+    }
+
+    .photo {
+      margin-bottom: 20px;
+      border: 1px solid;
+    }
+
+    .delete-post{
+      float: right;
+      color: white;
+    }
+
+    .view-post {
+      color: white;
+      display:inline-block;
+      width:fit-content;
+      margin: 10px 0 10px 0;
+    }
+
+    .edit-post {
+      color: lightseagreen;
+      width: fit-content;
+    }
+  }
+}
+
+.post {
+  width: 100%;
+  margin-bottom: 30px;
+  border-bottom: 2px solid;
 }
