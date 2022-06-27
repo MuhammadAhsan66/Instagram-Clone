@@ -1,9 +1,9 @@
 <div class = "create-post">
-  <h4>Create Post</h4>
-  <%= render 'create_post' %>
+  <h4><%= link_to "Create New Post", new_post_path %></h4>
 </div>
-
 <div class="posts-homepage">
   <h1>All Posts</h1>
-  <%= render @posts %>
+  <% posts().find_in_batches(batch_size: 5) do |posts| %>
+    <%= render posts %>
+  <% end %>
 </div>
