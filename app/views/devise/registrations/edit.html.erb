@@ -11,6 +11,11 @@
     <div class="field">
       <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email" %>
     </div> <br>
+    <p>Account Type: <p>
+    <%= f.radio_button :account_type, 'private' %>
+    <%= f.label :account_type, 'Private', value: 'private' %>
+    <%= f.radio_button :account_type, 'public' %>
+    <%= f.label :account_type, 'Public', value: 'public' %>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
@@ -18,15 +23,12 @@
 
     <div class="field">
       <%= f.password_field :password, autocomplete: "new-password", placeholder: "Password" %> <br><br>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "Password Confirmation" %> <br><br>
       <i>* leave blank if you don't want to change it</i>
       <% if @minimum_password_length %>
         <br>
         <em>* <%= @minimum_password_length %> characters minimum</em>
       <% end %>
-    </div> <br>
-
-    <div class="field">
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "Password Confirmation" %>
     </div> <br>
 
     <div class="field">

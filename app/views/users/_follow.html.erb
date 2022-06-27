@@ -1,9 +1,27 @@
-<% if current_user.following?(@user) %>
-  <%= link_to user_unfollow_path(@user.id), method: :delete, data: { target: 'follow-button.link', action: 'ajax:success->follow#update' }, remote: true do %>
-    <button class="btn btn-success ml-4">Unfollow</button>
+<% if @user.account_type == 'public' %>
+  <% if current_user.following?(@user) %>
+    <%= link_to user_unfollow_path(@user.id), method: :delete, remote: true do %>
+      <button class="btn btn-success ml-4">Unfollow</button>
+    <% end %>
+  <% else %>
+    <%= link_to user_follow_path(@user.id), method: :post, remote: true do %>
+      <button class="btn btn-success ml-4">Follow</button>
+    <% end %>
   <% end %>
-<% else %>
-  <%= link_to user_follow_path(@user.id), method: :post, data: { target: 'follow-button.link', action: 'ajax:success->follow#update' }, remote: true do %>
-    <button class="btn btn-success ml-4">Follow</button>
+<% end %>
+
+<% if @user.account_type == 'private' %>
+  <% if current_user.following?(@user) && @user.follower_relationships.find_by(follower_id: current_user.id).status == 'accepted' %>
+    <%= link_to user_unfollow_path(@user.id), method: :delete, remote: true do %>
+      <button class="btn btn-success ml-4">Unfollow</button>
+    <% end %>
+  <% elsif current_user.following?(@user) && @user.follower_relationships.find_by(follower_id: current_user.id).status == 'pending' %>
+    <%= link_to user_unfollow_path(@user.id), method: :delete, remote: true do %>
+      <button class="btn btn-secondary ml-4">Requested</button>
+    <% end %>
+  <% else %>
+    <%= link_to user_follow_path(@user.id), method: :post, remote: true do %>
+      <button class="btn btn-success ml-4">Follow</button>
+    <% end %>
   <% end %>
 <% end %>

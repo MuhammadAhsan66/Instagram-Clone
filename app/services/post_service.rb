@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PostService
   def initialize(params, post)
     @params = params

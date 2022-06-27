@@ -4,31 +4,24 @@ class PostsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_post, only: %i[show edit update destroy]
 
-  def index
-    @pagy, @posts = pagy(Post.includes(:photos, :user, :likes, :comments).order('created_at desc'),
-                         page: params[:page], items: 5)
-  end
-
   def new
     @post = Post.new
   end
 
   def create
-    @post = current_user.posts.new(post_params)
+    @post = Post.new(post_params)
     post_serivce = PostService.new(params, @post)
     ActiveRecord::Base.transaction do
       @post.save!
       post_serivce.save_photo
     end
-  rescue ActiveRecord::RecordInvalid => e
-    flash[:alert] = e.record.errors.full_messages
-  else
     flash[:notice] = 'Post has been saved.'
-  ensure
-    redirect_to posts_path
+    redirect_to @post
   end
 
-  def show; end
+  def show
+    authorize @post
+  end
 
   def edit
     authorize @post
@@ -37,20 +30,13 @@ class PostsController < ApplicationController
   def update
     authorize @post
     @post.update!(post_params)
-  rescue ActiveRecord::RecordInvalid => e
-    flash[:alert] = e.record.errors.full_messages
-  else
     flash[:notice] = 'Post has been Updated.'
-  ensure
     redirect_to @post
   end
 
   def destroy
     authorize @post
     @post.destroy!
-  rescue ActiveRecord::RecordNotDestroyed => e
-    flash.now[:alert] = e.record.errors.full_messages
-  else
     flash[:notice] = 'Post deleted!'
     redirect_to root_path
   end
@@ -58,10 +44,10 @@ class PostsController < ApplicationController
   private
 
   def set_post
-    @post = Post.find_by(id: params[:id])
+    @post = Post.find(params[:id])
   end
 
   def post_params
-    params.require(:post).permit(:caption)
+    params.require(:post).permit(:caption, :user_id)
   end
 end

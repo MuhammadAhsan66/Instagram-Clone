@@ -1,16 +1,19 @@
-<div class="post">
-  <div class="user-name">
-    <p>By: </p> <a href = "<%= user_path(story.user) %>"> <%= story.user.name %> </a>
-    <% if policy(story).destroy? %>
-      <%= link_to 'Delete', story_path(story), method: :delete, data: { confirm: "Are you sure? \nYou want to delete this story?" }, class: "delete-post btn btn-danger mt-2" %>
-    <% end %>
-  </div>
-
-  <div>
-    <div>
-      <p>Photos: </p><br>
-        <%= image_tag story.story_pic.url(:standard), class: "photo" %>
+<% if policy(story).show? %>
+  <div class="post">
+    <div class="user-name">
+      <p>By: </p> <a href = "<%= user_path(story.user) %>"> <%= story.user.name %> </a>
+      <% if policy(story).destroy? %>
+        <%= link_to 'Delete', story_path(story), method: :delete, data: { confirm: "Are you sure? \nYou want to delete this story?" }, class: "delete-post btn btn-danger mt-2" %>
+      <% end %>
     </div>
-    <p>Caption: </p><%= story.caption %>
+
+    <div>
+      <div>
+        <p>Photos: </p><br>
+          <%= image_tag story.story_pic.url(:standard), class: "photo" %>
+      </div>
+      <p>Caption: </p><%= story.caption %>
+    </div>
+      <p>Time: </p><%= time_ago_in_words(story.created_at) %>
   </div>
-</div>
+<% end %>

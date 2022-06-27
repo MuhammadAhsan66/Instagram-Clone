@@ -10,11 +10,11 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :stories, dependent: :destroy
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :rememberable, :validatable
 
   validates :name, presence: true, length: { maximum: 50 }
   validates :email, uniqueness: true
-  validates_format_of :email, with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/, message: 'format is invalid'
+  validates :email, format: { with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/, message: 'format is invalid' }
 
   def self.search(term)
     return unless term
