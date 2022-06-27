@@ -1,70 +1,53 @@
+# frozen_string_literal: true
+
 class PostsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_post, only: %i[show destroy edit update]
+  before_action :set_post, only: %i[show edit update destroy]
 
-  def index
-    @posts = Post.all.limit(1000).includes(:photos, :user, :likes).order('created_at desc')
-    # @posts = Post.all.order('created_at desc')
+  def new
     @post = Post.new
   end
 
   def create
-    @post = current_user.posts.new(post_params)
+    @post = Post.new(post_params)
+    post_serivce = PostService.new(params, @post)
     ActiveRecord::Base.transaction do
       @post.save!
-      save_photo
+      post_serivce.save_photo
     end
-  rescue ActiveRecord::RecordInvalid
-    render 'post_cannot_save'
-  else
-    redirect_to posts_path
     flash[:notice] = 'Post has been saved.'
-  end
-
-  def update
-    ActiveRecord::Base.transaction do
-      @post.update!(post_params)
-      save_photo
-    end
-  rescue ActiveRecord::RecordInvalid
-    render 'post_cannot_save'
-  else
     redirect_to @post
-    flash[:notice] = 'Post has been Updated.'
-  end
-
-  def destroy
-    ActiveRecord::Base.transaction do
-      @post.destroy!
-    end
-  rescue ActiveRecord::RecordInvalid
-    render 'post_cannot_save'
-  else
-    flash[:notice] = 'Post deleted!'
   end
 
   def show
-    @photos = @post.photos
-    @likes = @post.likes.includes(:user)
+    authorize @post
   end
 
-  def edit; end
+  def edit
+    authorize @post
+  end
+
+  def update
+    authorize @post
+    @post.update!(post_params)
+    flash[:notice] = 'Post has been Updated.'
+    redirect_to @post
+  end
+
+  def destroy
+    authorize @post
+    @post.destroy!
+    flash[:notice] = 'Post deleted!'
+    redirect_to root_path
+  end
 
   private
 
-  def find_post
+  def set_post
     @post = Post.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    render 'post_not_found'
   end
 
   def post_params
-    params.require(:post).permit(:caption)
-  end
-
-  def save_photo
-    params[:photos_list].each do |img|
-      @post.photos.create!(image: img)
-    end
+    params.require(:post).permit(:caption, :user_id)
   end
 end

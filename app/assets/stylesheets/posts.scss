@@ -1,6 +1,6 @@
 .create-post {
-  border: 2px solid rgb(164, 164, 164);
-  width: 50%;
+  border: 2px dotted rgb(164, 164, 164);
+  width: 45%;
   padding: 20px;
 
   h4 {
@@ -15,12 +15,13 @@
 
   h1 {
     text-align: center;
-    border: 2px solid;
+    border: 5px double;
     margin-bottom: 20px;
   }
 
   .post {
     padding: 0px 10px 20px 10px;
+    border: 2px solid;
 
     p {
       display: inline;
@@ -41,10 +42,6 @@
     .delete-post{
       float: right;
       color: white;
-    }
-
-    .user-name{
-      margin-bottom: 20px;
     }
 
     .view-post {

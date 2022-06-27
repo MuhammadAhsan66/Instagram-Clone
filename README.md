@@ -1,24 +1,46 @@
-# README
+# Install
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+#### Clone the repository
 
-Things you may want to cover:
+```shell
+git https://github.com/Muhammad-Ahsan-devs/Rails-Project.git
+cd Rails-Project
+```
 
-* Ruby version
+#### Check your Ruby version
 
-* System dependencies
+```shell
+ruby -v
+```
 
-* Configuration
+The ouput should start with something like `ruby 2.7.5` If not, install the right ruby version.
 
-* Database creation
+#### Check your Rails version
 
-* Database initialization
+```shell
+rails -v
+```
 
-* How to run the test suite
+The ouput should start with something like `Rails 5.2.7` If not, install the right ruby version
 
-* Services (job queues, cache servers, search engines, etc.)
+# System dependencies
+All the system dependencies are includes in gemfile. Just run this command to build the dependencies:
 
-* Deployment instructions
+``` bundle install ```
 
-* ...
+# Database initialization
+
+```shell
+rails db:create db:migrate db:seed
+```
+
+# How to run
+
+```shell
+rails s
+```
+And now you can visit the site with the URL http://localhost:3000
+
+# Deployed Link
+
+Here is the deployed link of this project on heroku: https://instagram-clone-devs.herokuapp.com/

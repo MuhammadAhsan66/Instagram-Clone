@@ -1,28 +1,32 @@
+# frozen_string_literal: true
+
 class LikesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_like, only: %i[destroy]
 
   def create
     @like = current_user.likes.new(like_params)
     @post = @like.post
-    if @like.save
-      respond_to :js
-    else
-      flash[:alert] = 'Something went wrong while liking this post'
-    end
+    @like.save!
+  rescue ActiveRecord::RecordInvalid => e
+    flash.now[:alert] = e.record.errors.full_messages
+  ensure
+    respond_to :js
   end
 
   def destroy
-    @like = Like.find(params[:id])
     @post = @like.post
-    if @like.destroy
-      respond_to :js
-    else
-      flash[:alert] = 'Something went wrong while unliking this post'
-    end
+    @like.destroy!
+    respond_to :js
   end
 
   private
+
+  def set_like
+    @like = Like.find(params[:id])
+  end
+
   def like_params
-    params.permit(:post_id)
+    params.permit(:post_id, :user_id)
   end
 end
