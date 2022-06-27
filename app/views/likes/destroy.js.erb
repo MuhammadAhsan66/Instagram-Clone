@@ -1,1 +1,2 @@
 $('#like-button-<%= @post.id.to_s %>').html('<%= link_to "Like", post_likes_path(@post), method: :post, remote: true, class: "btn btn-outline-success" %>');
+<%= render 'shared/flash' %>

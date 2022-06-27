@@ -1,38 +1,43 @@
+# frozen_string_literal: true
+
 class CommentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_post, only: %i[destroy]
-
-  def index
-    @comments = @post.comments.includes(:user)
-  end
+  before_action :set_comment, only: %i[edit update destroy]
 
   def create
     @comment = Comment.new(comment_params)
-    if @comment.save
-      @post = @comment.post
-      respond_to :js
-    else
-      flash[:alert] = 'Something went wrong while commenting'
-    end
+    @post = @comment.post
+    @comment.save!
+  rescue ActiveRecord::RecordInvalid => e
+    flash.now[:alert] = e.record.errors.full_messages
+  ensure
+    respond_to :js
+  end
+
+  def edit
+    authorize @comment
+  end
+
+  def update
+    authorize @comment
+    @comment.update!(comment_params)
+    redirect_to @comment.post
   end
 
   def destroy
+    authorize @comment
     @post = @comment.post
-    if @comment.destroy
-      respond_to :js
-    else
-      flash[:alert] = 'Something went wrong while deleting comment'
-    end
+    @comment.destroy!
+    respond_to :js
   end
 
   private
-  def find_post
+
+  def set_comment
     @comment = Comment.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    render 'comment_not_found'
   end
 
   def comment_params
-    params.required(:comment).permit(:user_id, :post_id, :body)
+    params.require(:comment).permit(:user_id, :post_id, :body)
   end
 end
