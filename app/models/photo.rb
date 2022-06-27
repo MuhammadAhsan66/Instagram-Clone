@@ -5,6 +5,7 @@ class Photo < ApplicationRecord
 
   belongs_to :post
   validates :image, presence: true
+
   validates :image, file_size: { less_than: 5.megabytes, message: 'size must be smaller than 5 MB' }
   validates :image, format: { with: /([^\s]+(\.(?i)(jpg|png|jpeg))$)/,
                               message: 'format is invalid. Choose JPG, PNG or JPEG' }

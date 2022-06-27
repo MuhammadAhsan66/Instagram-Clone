@@ -24,8 +24,10 @@ gem 'rubocop-rails', '~> 2.14', '>= 2.14.2'
 # Authentication purpose
 gem 'devise'
 
+
 # Object oriented authorization for Rails applications
 gem 'pundit', '~> 2.2'
+
 
 # For file validation purpose
 gem 'file_validators', '~> 3.0'
