@@ -5,5 +5,7 @@
 
 <div class="posts-homepage">
   <h1>All Stories</h1>
-  <%= render @stories %>
+  <% stories().find_in_batches(batch_size: 5) do |stories| %>
+    <%= render stories %>
+  <% end %>
 </div>

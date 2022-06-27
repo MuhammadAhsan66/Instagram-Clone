@@ -1,66 +1,31 @@
+# frozen_string_literal: true
+
 class StoriesController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_story, only: %i[destroy]
-
-  def index
-    @stories = Story.all.limit(1000).includes(:user).order('created_at desc')
-    @story = Story.new
-  end
+  before_action :set_story, only: %i[destroy]
 
   def create
-    @story = current_user.stories.new(story_params)
-    ActiveRecord::Base.transaction do
-      @story.save!
-    end
-  rescue ActiveRecord::RecordInvalid
-    render 'story_cannot_save'
-  else
+    @story = Story.new(story_params)
+    @story.save!
     flash[:notice] = 'Story has been saved.'
     DeleteStoryJob.set(wait: 1.day).perform_later(@story)
     redirect_to stories_path
   end
 
   def destroy
-    ActiveRecord::Base.transaction do
-      @story.destroy!
-    end
-  rescue ActiveRecord::RecordInvalid
-    render 'story_cannot_save'
-  else
+    authorize @story
+    @story.destroy!
     flash[:notice] = 'Story deleted!'
     redirect_to stories_path
   end
 
-  # def update
-  #   ActiveRecord::Base.transaction do
-  #     @post.update!(story_params)
-  #     save_photo
-  #   end
-  # rescue ActiveRecord::RecordInvalid
-  #   render 'post_cannot_save'
-  # else
-  #   flash[:notice] = 'Post has been Updated.'
-  #   redirect_to @post
-  # end
-
-
-  # def show
-  #   @photos = @post.photos
-  #   @likes = @post.likes.includes(:user)
-  #   @comments = Comment.new
-  # end
-
-  # def edit; end
-
   private
 
-  def find_story
+  def set_story
     @story = Story.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    render 'story_not_found'
   end
 
   def story_params
-    params.require(:story).permit(:caption, :story_pic)
+    params.require(:story).permit(:caption, :story_pic, :user_id)
   end
 end

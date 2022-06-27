@@ -1,5 +1,5 @@
 <%= form_for [post, Comment.new], :html => {:class => "w-100"}, remote: true do |f| %>
   <%= f.hidden_field :user_id, value: current_user.id %>
   <%= f.hidden_field :post_id, value: post.id %>
-  <%= f.text_field :body, class: "form-control comment-box-id border-0", placeholder: "Add a comment ...", required: true, autocomplete: :off, remote: true %>
+  <%= f.text_field :body, class: "form-control comment-box-id border-0", placeholder: "Add a comment ...", required: true, remote: true %>
 <% end %>
