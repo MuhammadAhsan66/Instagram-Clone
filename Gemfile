@@ -18,6 +18,7 @@ gem 'sidekiq', '~> 6.4', '>= 6.4.2'
 
 # A RuboCop extension focused on enforcing Rails best practices and coding conventions.
 gem 'rubocop', '~> 1.30'
+gem 'rubocop-minitest', '~> 0.20.1'
 gem 'rubocop-performance', '~> 1.14'
 gem 'rubocop-rails', '~> 2.14', '>= 2.14.2'
 
@@ -86,10 +87,11 @@ end
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
+  # minitest provides a complete suite of testing facilities
+  gem 'minitest', '~> 5.8', '>= 5.8.4'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

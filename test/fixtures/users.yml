@@ -1,0 +1,11 @@
+valid:
+  email: 'testcase@gmail.com'
+  name: 'valid user'
+  encrypted_password: '12345678'
+  image: "temp.jpg"
+
+valid2:
+  email: 'testcase2@gmail.com'
+  name: 'valid user 2'
+  encrypted_password: '87654321'
+  image: "temp2.jpg"
