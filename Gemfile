@@ -92,6 +92,8 @@ group :test do
   gem 'chromedriver-helper'
   # minitest provides a complete suite of testing facilities
   gem 'minitest', '~> 5.8', '>= 5.8.4'
+  # Code coverage for Ruby with a powerful configuration library a
+  gem 'simplecov', '~> 0.21.2'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

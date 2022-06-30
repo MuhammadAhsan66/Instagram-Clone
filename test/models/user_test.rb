@@ -14,12 +14,18 @@ class UserTest < ActiveSupport::TestCase
 
   test 'invalid user without email' do
     @user.email = nil
-    refute @user.valid?
+    assert_not @user.valid?
   end
 
   test 'invalid user without name' do
     @user.name = nil
-    refute @user.valid?
+    assert_not @user.valid?
+  end
+
+  test 'invalid user without name and email both' do
+    @user.name = nil
+    @user.email = nil
+    assert_not @user.valid?
   end
 
   test 'user has many post' do

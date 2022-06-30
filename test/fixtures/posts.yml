@@ -5,3 +5,7 @@ one:
 two:
   caption: 'Test post 2'
   user: valid
+
+three:
+  caption: 'Test post 3'
+  user: valid2
