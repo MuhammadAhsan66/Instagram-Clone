@@ -12,13 +12,13 @@ class LikesControllerTest < ActionDispatch::IntegrationTest
     @like = likes(:one)
   end
 
-  test 'should create like' do
+  test 'does create like' do
     assert_difference('Like.count') do
       post post_likes_url(@post, format: :js)
     end
   end
 
-  test 'should destroy like' do
+  test 'does destroy like' do
     assert_difference('Like.count', -1) do
       delete like_url(@like, format: :js)
     end
