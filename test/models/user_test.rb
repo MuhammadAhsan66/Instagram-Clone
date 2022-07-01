@@ -17,6 +17,11 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
 
+  test 'invalid user with invalid email' do
+    @user.email = 'invalid.gmail.com'
+    assert_not @user.valid?
+  end
+
   test 'invalid user without name' do
     @user.name = nil
     assert_not @user.valid?
