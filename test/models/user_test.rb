@@ -27,6 +27,11 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
 
+  test 'invalid user with long name' do
+    @user.name = 'This is a very long name for a user. User name should be of 50 character maximum.'
+    assert_not @user.valid?
+  end
+
   test 'invalid user without name and email both' do
     @user.name = nil
     @user.email = nil
@@ -47,9 +52,5 @@ class UserTest < ActiveSupport::TestCase
 
   test 'user has many stories' do
     assert_equal 2, @user.stories.size
-  end
-
-  test 'user can follow each other' do
-    assert @user.following_relationships.create(following_id: @user2.id).valid?
   end
 end

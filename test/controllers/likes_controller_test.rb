@@ -12,15 +12,35 @@ class LikesControllerTest < ActionDispatch::IntegrationTest
     @like = likes(:one)
   end
 
-  test 'does create like' do
+  test '#create' do
     assert_difference('Like.count') do
       post post_likes_url(@post, format: :js)
     end
   end
 
-  test 'does destroy like' do
+  test '#destroy' do
     assert_difference('Like.count', -1) do
       delete like_url(@like, format: :js)
     end
+  end
+
+  test 'does not #create a like twice' do
+    post post_likes_url(@post, format: :js)
+    post post_likes_url(@post, format: :js)
+    assert_response :redirect
+    assert_equal ['User has already been taken'], flash[:alert]
+  end
+
+  test 'does not #create a like on invalid post' do
+    post post_likes_url(14564564564, format: :js)
+    assert_response :redirect
+    assert_equal ['Post must exist'], flash[:alert]
+  end
+
+  test 'does not #destroy invalid like' do
+    assert_no_difference('Like.count', -1) do
+      delete like_url(10, format: :js)
+    end
+    assert_equal 'Record Not Found', flash[:alert]
   end
 end

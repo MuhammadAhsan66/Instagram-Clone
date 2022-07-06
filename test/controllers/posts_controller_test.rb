@@ -14,12 +14,12 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
 
   # ------ Postive Tests --------
 
-  test 'does get new' do
+  test '#new' do
     get new_post_url
     assert_response :success
   end
 
-  test 'does create post' do
+  test '#create' do
     img = fixture_file_upload('assets/14.jpeg', 'image/jpeg')
     assert_difference('Post.count') do
       post posts_url, params: { post: { caption: 'new post', user_id: @user.id }, photos_list: [img] }
@@ -28,23 +28,23 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to post_url(Post.last)
   end
 
-  test 'does show post' do
+  test '#show' do
     get post_url(@post)
     assert_response :success
   end
 
-  test 'does get edit' do
+  test '#get' do
     get edit_post_url(@post)
     assert_response :success
   end
 
-  test 'does update post' do
+  test '#update' do
     patch post_url(@post), params: { post: { caption: 'updated caption', user_id: @user.id } }
     assert_equal 'Post has been Updated.', flash[:notice]
     assert_redirected_to post_url(@post)
   end
 
-  test 'does destroy post' do
+  test '#destroy' do
     assert_difference('Post.count', -1) do
       delete post_url(@post)
     end
@@ -93,7 +93,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'does not show un identified post' do
-    get post_url(10)
+    get post_url(125834844098572)
     assert_response :redirect
     assert_equal 'Record Not Found', flash[:alert]
   end
@@ -105,7 +105,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'does not get edit of un identified post' do
-    get edit_post_url(10)
+    get edit_post_url(14534534534456)
     assert_response :redirect
   end
 
@@ -115,7 +115,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'does not update un identified post' do
-    patch post_url(10), params: { post: { caption: 'updated caption', user_id: @user.id } }
+    patch post_url(13479834798534534), params: { post: { caption: 'updated caption', user_id: @user.id } }
     assert_redirected_to root_path
   end
 
@@ -126,7 +126,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
 
   test 'does not destroy un identified post' do
     assert_no_difference('Post.count', -1) do
-      delete post_url(10)
+      delete post_url(175837246583460)
     end
     assert_redirected_to root_path
   end
@@ -140,7 +140,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
 
   # ------ Side Effects -------
 
-  test 'does create user' do
+  test 'user can sign up with new account' do
     sign_out @user
     assert_difference('User.count') do
       post user_registration_url, params: { user: { name: 'new user', email: 'new@gmail.com', password: '12345678',
