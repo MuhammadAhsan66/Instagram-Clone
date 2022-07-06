@@ -32,7 +32,7 @@ class LikesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'does not #create a like on invalid post' do
-    post post_likes_url(14564564564, format: :js)
+    post post_likes_url(14_564_564_564, format: :js)
     assert_response :redirect
     assert_equal ['Post must exist'], flash[:alert]
   end

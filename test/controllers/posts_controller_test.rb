@@ -93,7 +93,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'does not show un identified post' do
-    get post_url(125834844098572)
+    get post_url(125_834_844_098_572)
     assert_response :redirect
     assert_equal 'Record Not Found', flash[:alert]
   end
@@ -105,7 +105,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'does not get edit of un identified post' do
-    get edit_post_url(14534534534456)
+    get edit_post_url(14_534_534_534_456)
     assert_response :redirect
   end
 
@@ -115,7 +115,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'does not update un identified post' do
-    patch post_url(13479834798534534), params: { post: { caption: 'updated caption', user_id: @user.id } }
+    patch post_url(13_479_834_798_534_534), params: { post: { caption: 'updated caption', user_id: @user.id } }
     assert_redirected_to root_path
   end
 
@@ -126,7 +126,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
 
   test 'does not destroy un identified post' do
     assert_no_difference('Post.count', -1) do
-      delete post_url(175837246583460)
+      delete post_url(175_837_246_583_460)
     end
     assert_redirected_to root_path
   end
