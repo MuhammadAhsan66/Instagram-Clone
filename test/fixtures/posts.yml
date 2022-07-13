@@ -1,0 +1,11 @@
+one:
+  caption: 'Test post 1'
+  user: valid
+
+two:
+  caption: 'Test post 2'
+  user: valid
+
+three:
+  caption: 'Test post 3'
+  user: valid2

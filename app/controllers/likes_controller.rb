@@ -8,9 +8,6 @@ class LikesController < ApplicationController
     @like = current_user.likes.new(like_params)
     @post = @like.post
     @like.save!
-  rescue ActiveRecord::RecordInvalid => e
-    flash.now[:alert] = e.record.errors.full_messages
-  ensure
     respond_to :js
   end
 

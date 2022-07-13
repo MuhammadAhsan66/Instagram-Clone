@@ -1,0 +1,9 @@
+one:
+  body: 'Test comment 1'
+  post: one
+  user: valid
+
+two:
+  body: 'Test comment 2'
+  post: two
+  user: valid

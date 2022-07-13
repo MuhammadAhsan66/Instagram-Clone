@@ -1,0 +1,9 @@
+one:
+  caption: 'Test story 1'
+  story_pic: 'temp.jpg'
+  user: valid
+
+two:
+  caption: 'Test story 2'
+  story_pic: 'temp.jpg'
+  user: valid
