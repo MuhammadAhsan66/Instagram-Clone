@@ -3,8 +3,8 @@
 #### Clone the repository
 
 ```shell
-git https://github.com/Muhammad-Ahsan-devs/Rails-Project.git
-cd Rails-Project
+git https://github.com/Muhammad-Ahsan-devs/Instagram-Clone.git
+cd Instagram-Clone
 ```
 
 #### Check your Ruby version
@@ -13,7 +13,7 @@ cd Rails-Project
 ruby -v
 ```
 
-The ouput should start with something like `ruby 2.7.5` If not, install the right ruby version.
+The output should start with something like `ruby 2.7.5` If not, install the right ruby version.
 
 #### Check your Rails version
 
@@ -21,10 +21,10 @@ The ouput should start with something like `ruby 2.7.5` If not, install the righ
 rails -v
 ```
 
-The ouput should start with something like `Rails 5.2.7` If not, install the right ruby version
+The output should start with something like `Rails 5.2.7` If not, install the right ruby version
 
 # System dependencies
-All the system dependencies are includes in gemfile. Just run this command to build the dependencies:
+All the system dependencies are included in Gemfile. Just run this command to build the dependencies:
 
 ``` bundle install ```
 
